@@ -16,6 +16,5 @@ public class Financiamento {
     private Integer parcelas;
     private String observacao;
     private Boolean aprovado;
-
     private Venda venda;
 }

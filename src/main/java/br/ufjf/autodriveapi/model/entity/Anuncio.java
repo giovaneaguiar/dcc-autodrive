@@ -13,7 +13,6 @@ import java.util.List;
 
 public class Anuncio {
      private Long id;
-
      private Date data_anuncio;
      private Double preco;
      private String descricao;

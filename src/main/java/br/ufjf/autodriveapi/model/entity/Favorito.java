@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 public class Favorito {
     private Long id;
-
     private String veiculo;
     private LocalDateTime dataFavorito;
 
