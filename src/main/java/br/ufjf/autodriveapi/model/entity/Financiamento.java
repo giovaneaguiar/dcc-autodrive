@@ -1,7 +1,6 @@
 package br.ufjf.autodriveapi.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 public class Financiamento {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double valor;
     private Integer parcela;
