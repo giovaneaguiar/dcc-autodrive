@@ -16,7 +16,6 @@ public class Notificacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String titulo;
     private String descricao;
     private Double valor;
