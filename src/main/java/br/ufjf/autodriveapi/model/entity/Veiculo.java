@@ -31,8 +31,7 @@ public class Veiculo {
     private Date anuncio;
 
     @ManyToOne
-    Empresa empresa;
-    @ManyToOne
-    Venda venda;
+    private Empresa empresa;
+
 }
 

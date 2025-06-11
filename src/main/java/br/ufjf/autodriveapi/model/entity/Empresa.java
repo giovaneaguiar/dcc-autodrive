@@ -19,6 +19,4 @@ public class Empresa {
     private String nome;
     private String cnpj;
 
-//    private Usuario usuario;
-//    private Veiculo veiculo;
 }

@@ -22,5 +22,5 @@ public class Notificacao {
     private LocalDateTime dataCriacao;
 
     @ManyToOne
-    Usuario usuario;
+    private Usuario usuario;
 }

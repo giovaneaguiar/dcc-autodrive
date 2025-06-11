@@ -19,5 +19,5 @@ public class Proposta {
     private Integer valor;
 
     @ManyToOne
-    Usuario usuario;
+    private Usuario usuario;
 }

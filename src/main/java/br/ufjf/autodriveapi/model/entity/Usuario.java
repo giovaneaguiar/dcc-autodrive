@@ -23,5 +23,5 @@ public class Usuario {
     private String tipo;
 
     @ManyToOne
-    Empresa empresa;
+    private Empresa empresa;
 }

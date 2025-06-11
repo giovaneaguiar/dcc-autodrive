@@ -22,5 +22,8 @@ public class Venda {
     private boolean concluido;
 
     @ManyToOne
-    Usuario usuario;
+    private Usuario usuario;
+
+    @ManyToOne
+    private Veiculo veiculo;
 }
