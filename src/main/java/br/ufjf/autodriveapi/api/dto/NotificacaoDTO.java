@@ -12,9 +12,13 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class NotificacaoDTO {
 
+    private Long idUsuario;
+    private String nomeUsuario;
+
     public static NotificacaoDTO create(Notificacao notificacao) {
         ModelMapper modelMapper = new ModelMapper();
         NotificacaoDTO dto = modelMapper.map(notificacao, NotificacaoDTO.class);
+        dto.nomeUsuario = notificacao.getUsuario().getNome();
         return dto;
     }
 }

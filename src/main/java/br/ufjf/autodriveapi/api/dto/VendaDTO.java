@@ -12,9 +12,13 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class VendaDTO {
 
+    private Long idUsuario;
+    private String nomeUsuario;
+
     public static VendaDTO create(Venda venda) {
         ModelMapper modelMapper = new ModelMapper();
         VendaDTO dto = modelMapper.map(venda, VendaDTO.class);
+        dto.nomeUsuario = venda.getUsuario().getNome();
         return dto;
     }
 }

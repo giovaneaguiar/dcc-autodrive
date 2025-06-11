@@ -5,10 +5,13 @@ import org.modelmapper.ModelMapper;
 
 public class FavoritoDTO {
 
+    private Long idVeiculo;
+    private String modeloVeiculo;
 
     public static FavoritoDTO create(Favorito favorito) {
         ModelMapper modelMapper = new ModelMapper();
         FavoritoDTO dto = modelMapper.map(favorito, FavoritoDTO.class);
+        dto.modeloVeiculo = favorito.getVeiculo().getModelo();
         return dto;
     }
 }
