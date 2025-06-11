@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -14,6 +16,11 @@ public class NotificacaoDTO {
 
     private Long idUsuario;
     private String nomeUsuario;
+
+    private String titulo;
+    private String descricao;
+    private Double valor;
+    private LocalDateTime dataCriacao;
 
     public static NotificacaoDTO create(Notificacao notificacao) {
         ModelMapper modelMapper = new ModelMapper();

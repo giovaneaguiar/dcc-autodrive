@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import java.util.Date;
+
 
 @Data
 @NoArgsConstructor
@@ -17,6 +19,18 @@ public class VeiculoDTO {
 
     private String nomeEmpresa;
     private Double valorFinalVenda;
+
+    private String placa;
+    private String modelo;
+    private String cor;
+    private String ano;
+    private String versao;
+    private String quilometragem;
+    private String descricao;
+    private Double preco;
+    private Boolean ativo;
+    private String condicao;
+    private Date anuncio;
 
     public static VeiculoDTO create(Veiculo veiculo) {
         ModelMapper modelMapper = new ModelMapper();

@@ -12,6 +12,8 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class FotoDTO {
 
+    private String foto;
+
     public static FotoDTO create(Foto foto) {
         ModelMapper modelMapper = new ModelMapper();
         FotoDTO dto = modelMapper.map(foto, FotoDTO.class);

@@ -12,6 +12,8 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class TipoDTO {
 
+    private String nome;
+
     public static TipoDTO create(Tipo tipo) {
         ModelMapper modelMapper = new ModelMapper();
         TipoDTO dto = modelMapper.map(tipo, TipoDTO.class);

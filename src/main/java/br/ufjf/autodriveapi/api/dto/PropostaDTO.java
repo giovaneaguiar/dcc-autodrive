@@ -15,6 +15,9 @@ public class PropostaDTO {
     private Long idUsuario;
     private String nomeUsuario;
 
+    private String descricao;
+    private Integer valor;
+
     public static PropostaDTO create(Proposta proposta) {
         ModelMapper modelMapper = new ModelMapper();
         PropostaDTO dto = modelMapper.map(proposta, PropostaDTO.class);

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class CategoriaDTO {
 
+    private String descricao;
 
     public static CategoriaDTO create(Categoria categoria) {
         ModelMapper modelMapper = new ModelMapper();

@@ -12,6 +12,9 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class EmpresaDTO {
 
+    private String nome;
+    private String cnpj;
+
     public static EmpresaDTO create(Empresa empresa) {
         ModelMapper modelMapper = new ModelMapper();
         EmpresaDTO dto = modelMapper.map(empresa, EmpresaDTO.class);

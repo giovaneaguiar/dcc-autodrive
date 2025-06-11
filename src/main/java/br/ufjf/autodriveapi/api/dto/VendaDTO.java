@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -14,6 +16,10 @@ public class VendaDTO {
 
     private Long idUsuario;
     private String nomeUsuario;
+
+    private LocalDateTime dataVenda;
+    private double valorFinal;
+    private boolean concluido;
 
     public static VendaDTO create(Venda venda) {
         ModelMapper modelMapper = new ModelMapper();

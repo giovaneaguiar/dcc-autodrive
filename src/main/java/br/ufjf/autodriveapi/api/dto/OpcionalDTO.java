@@ -13,6 +13,14 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class OpcionalDTO {
 
+    private String descricao;
+    private Boolean arCondicionado;
+    private Boolean direcaoHidraulica;
+    private Boolean vidroEletrico;
+    private Boolean cameraRe;
+    private Boolean sensor;
+    private Boolean completo;
+
     public static OpcionalDTO create(Opcional opcional) {
         ModelMapper modelMapper = new ModelMapper();
         OpcionalDTO dto = modelMapper.map(opcional, OpcionalDTO.class);

@@ -15,6 +15,11 @@ public class FinanciamentoDTO {
     private Long idVenda;
     private Double valorFinalVenda;
 
+    private Double valor;
+    private Integer parcela;
+    private String observacao;
+    private Boolean aprovado;
+
 
     public static FinanciamentoDTO create(Financiamento financiamento) {
         ModelMapper modelMapper = new ModelMapper();

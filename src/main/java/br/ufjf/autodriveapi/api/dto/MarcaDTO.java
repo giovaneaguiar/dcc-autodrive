@@ -12,6 +12,8 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class MarcaDTO {
 
+    private String marca;
+
     public static MarcaDTO create(Marca marca) {
         ModelMapper modelMapper = new ModelMapper();
         MarcaDTO dto = modelMapper.map(marca, MarcaDTO.class);
