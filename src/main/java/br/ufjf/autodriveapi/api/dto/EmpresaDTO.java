@@ -14,6 +14,13 @@ public class EmpresaDTO {
 
     private String nome;
     private String cnpj;
+    private String logradouro;
+    private Integer numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String cep;
 
     public static EmpresaDTO create(Empresa empresa) {
         ModelMapper modelMapper = new ModelMapper();

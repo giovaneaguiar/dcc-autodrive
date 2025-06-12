@@ -20,6 +20,8 @@ public class Venda {
     private LocalDateTime dataVenda;
     private double valorFinal;
     private boolean concluido;
+    private String descricao;
+    private String status;
 
     @ManyToOne
     private Usuario usuario;

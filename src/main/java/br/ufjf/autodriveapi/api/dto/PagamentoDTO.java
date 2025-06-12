@@ -14,13 +14,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PagamentoDTO {
 
-    private LocalDateTime dataPagamento;
-    private String metodo;
     private String status;
+    private String metodo;
+    private LocalDateTime dataPagamento;
+    private String descricao;
+
+    private Long idVenda;
+    private Double valorFinal;
 
     public static PagamentoDTO create(Pagamento pagamento) {
         ModelMapper modelMapper = new ModelMapper();
         PagamentoDTO dto = modelMapper.map(pagamento, PagamentoDTO.class);
+        dto.valorFinal = pagamento.getVenda().getValorFinal();
         return dto;
     }
 }

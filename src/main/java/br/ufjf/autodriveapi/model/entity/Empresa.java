@@ -18,5 +18,11 @@ public class Empresa {
 
     private String nome;
     private String cnpj;
-
+    private String logradouro;
+    private Integer numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String cep;
 }

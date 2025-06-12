@@ -7,14 +7,12 @@ import java.time.LocalDateTime;
 
 public class FavoritoDTO {
 
-    private Long idVeiculo;
-    private String modeloVeiculo;
     private LocalDateTime dataFavorito;
+    private String descricao;
 
     public static FavoritoDTO create(Favorito favorito) {
         ModelMapper modelMapper = new ModelMapper();
         FavoritoDTO dto = modelMapper.map(favorito, FavoritoDTO.class);
-        dto.modeloVeiculo = favorito.getVeiculo().getModelo();
         return dto;
     }
 }

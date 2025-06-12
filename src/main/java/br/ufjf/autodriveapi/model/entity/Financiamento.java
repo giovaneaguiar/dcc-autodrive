@@ -17,6 +17,7 @@ public class Financiamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Double valor;
     private Integer parcela;
     private String observacao;

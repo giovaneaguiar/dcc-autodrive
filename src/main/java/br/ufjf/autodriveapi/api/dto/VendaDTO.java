@@ -14,17 +14,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class VendaDTO {
 
-    private Long idUsuario;
-    private String nomeUsuario;
-
     private LocalDateTime dataVenda;
     private double valorFinal;
     private boolean concluido;
+
+    private Long idUsuario;
+    private Long idVeiculo;
+    private String nomeVeiculo;
+    private String nomeUsuario;
 
     public static VendaDTO create(Venda venda) {
         ModelMapper modelMapper = new ModelMapper();
         VendaDTO dto = modelMapper.map(venda, VendaDTO.class);
         dto.nomeUsuario = venda.getUsuario().getNome();
+        dto.nomeVeiculo = venda.getVeiculo().getDescricao();
         return dto;
     }
 }

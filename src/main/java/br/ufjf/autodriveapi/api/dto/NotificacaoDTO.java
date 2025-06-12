@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class NotificacaoDTO {
 
-    private Long idUsuario;
-    private String nomeUsuario;
-
     private String titulo;
     private String descricao;
     private Double valor;
     private LocalDateTime dataCriacao;
+
+    private Long idUsuario;
+    private String nomeUsuario;
 
     public static NotificacaoDTO create(Notificacao notificacao) {
         ModelMapper modelMapper = new ModelMapper();

@@ -32,6 +32,15 @@ public class Veiculo {
 
     @ManyToOne
     private Empresa empresa;
-
+    @OneToOne
+    private Categoria categoria;
+    @OneToOne
+    private Marca marca;
+    @OneToOne
+    private Opcional opcional;
+    @OneToOne
+    private Tipo tipo;
+    @OneToOne
+    private Foto foto;
 }
 

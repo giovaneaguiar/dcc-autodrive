@@ -12,7 +12,7 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class MarcaDTO {
 
-    private String marca;
+    private String nome;
 
     public static MarcaDTO create(Marca marca) {
         ModelMapper modelMapper = new ModelMapper();

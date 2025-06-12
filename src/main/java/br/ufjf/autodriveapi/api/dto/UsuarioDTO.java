@@ -12,16 +12,22 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class UsuarioDTO {
 
-    private Long idEmpresa;
-    private String nomeEmpresa;
-
     private String nome;
     private String email;
     private String senha;
     private String telefone;
     private String cpf;
     private String tipo;
+    private String logradouro;
+    private Integer numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String cep;
 
+    private Long idEmpresa;
+    private String nomeEmpresa;
 
     public static UsuarioDTO create(Usuario usuario) {
         ModelMapper modelMapper = new ModelMapper();

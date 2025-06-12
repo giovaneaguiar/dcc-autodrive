@@ -17,8 +17,7 @@ public class Favorito{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dataFavorito;
 
-    @ManyToOne
-    private Veiculo veiculo;
+    private LocalDateTime dataFavorito;
+    private String descricao;
 }

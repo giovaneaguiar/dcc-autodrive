@@ -14,12 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class VeiculoDTO {
 
-    private Long idEmpresa;
-    private Long idVenda;
-
-    private String nomeEmpresa;
-    private Double valorFinalVenda;
-
     private String placa;
     private String modelo;
     private String cor;
@@ -32,11 +26,29 @@ public class VeiculoDTO {
     private String condicao;
     private Date anuncio;
 
+    private Long idEmpresa;
+    private Long idCategoria;
+    private Long idMarca;
+    private Long idOpcional;
+    private Long idTipoVeiculo;
+    private Long idFoto;
+
+    private String nomeEmpresa;
+    private String nomeCategoria;
+    private String nomeMarca;
+    private String opcional;
+    private String nomeTipoVeiculo;
+    private String foto;
+
     public static VeiculoDTO create(Veiculo veiculo) {
         ModelMapper modelMapper = new ModelMapper();
         VeiculoDTO dto = modelMapper.map(veiculo, VeiculoDTO.class);
         dto.nomeEmpresa = veiculo.getEmpresa().getNome();
-        dto.valorFinalVenda = veiculo.getVenda().getValorFinal();
+        dto.nomeCategoria = veiculo.getCategoria().getDescricao();
+        dto.nomeMarca = veiculo.getMarca().getNome();
+        dto.opcional = veiculo.getOpcional().getDescricao();
+        dto.nomeTipoVeiculo = veiculo.getTipo().getNome();
+        dto.foto = veiculo.getFoto().getFoto();
         return dto;
     }
 }

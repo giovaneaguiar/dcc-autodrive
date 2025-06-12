@@ -12,11 +12,11 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class PropostaDTO {
 
-    private Long idUsuario;
-    private String nomeUsuario;
-
     private String descricao;
     private Integer valor;
+
+    private Long idUsuario;
+    private String nomeUsuario;
 
     public static PropostaDTO create(Proposta proposta) {
         ModelMapper modelMapper = new ModelMapper();

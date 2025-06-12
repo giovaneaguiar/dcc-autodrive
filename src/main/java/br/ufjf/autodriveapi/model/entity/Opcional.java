@@ -1,9 +1,6 @@
 package br.ufjf.autodriveapi.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Opcional extends Veiculo {
+public class Opcional{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +23,4 @@ public class Opcional extends Veiculo {
     private Boolean cameraRe;
     private Boolean sensor;
     private Boolean completo;
-
 }

@@ -1,9 +1,6 @@
 package br.ufjf.autodriveapi.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +12,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Pagamento extends Venda {
+public class Pagamento{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataPagamento;
-    private String metodo;
     private String status;
+    private String metodo;
+    private LocalDateTime dataPagamento;
+    private String descricao;
 
+    @ManyToOne
+    private Venda venda;
 }

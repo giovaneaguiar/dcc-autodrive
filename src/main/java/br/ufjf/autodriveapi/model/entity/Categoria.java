@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Categoria extends Veiculo{
+public class Categoria{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

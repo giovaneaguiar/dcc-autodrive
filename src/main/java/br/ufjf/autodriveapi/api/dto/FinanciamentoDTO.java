@@ -12,14 +12,13 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class FinanciamentoDTO {
 
-    private Long idVenda;
-    private Double valorFinalVenda;
-
     private Double valor;
     private Integer parcela;
     private String observacao;
     private Boolean aprovado;
 
+    private Long idVenda;
+    private Double valorFinalVenda;
 
     public static FinanciamentoDTO create(Financiamento financiamento) {
         ModelMapper modelMapper = new ModelMapper();
