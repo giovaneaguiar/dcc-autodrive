@@ -9,14 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Anuncio {
+public class anuncio {
 
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
