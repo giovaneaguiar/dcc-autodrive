@@ -1,6 +1,6 @@
 package br.ufjf.autodriveapi.api.dto;
 
-import br.ufjf.autodriveapi.model.entity.anuncio;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ public class AnuncioDTO {
     private String foto;
     private Boolean vendido;
 
-    public static AnuncioDTO create(anuncio anuncio) {
+    public static AnuncioDTO create(Anuncio anuncio) {
         ModelMapper modelMapper = new ModelMapper();
         AnuncioDTO dto = modelMapper.map(anuncio, AnuncioDTO.class);
         return dto;

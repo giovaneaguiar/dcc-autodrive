@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class anuncio {
+public class Anuncio {
 
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
