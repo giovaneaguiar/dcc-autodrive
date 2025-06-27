@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.VendaRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,26 @@ public class VendaService {
         repository.delete(venda);
     }
 
-    public void validar(Venda venda) {}
+    public void validar(Venda venda) {
+        if (venda.getDataVenda() == null) {
+            throw new RegraNegocioException("A data da venda é obrigatória.");
+        }
+
+        if (venda.getValorFinal() <= 0) {
+            throw new RegraNegocioException("O valor final da venda deve ser maior que zero.");
+        }
+
+        if (venda.getStatus() == null || venda.getStatus().trim().isEmpty()) {
+            throw new RegraNegocioException("O status da venda é obrigatório.");
+        }
+
+        if (venda.getUsuario() == null || venda.getUsuario().getId() == null) {
+            throw new RegraNegocioException("O usuário responsável pela venda é obrigatório.");
+        }
+
+        if (venda.getVeiculo() == null || venda.getVeiculo().getId() == null) {
+            throw new RegraNegocioException("O veículo associado à venda é obrigatório.");
+        }
+    }
+
 }

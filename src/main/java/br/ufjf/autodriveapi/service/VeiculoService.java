@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.VeiculoRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,50 @@ public class VeiculoService {
         repository.delete(veiculo);
     }
 
-    public void validar(Veiculo veiculo) {}
+    public void validar(Veiculo veiculo) {
+        if (veiculo.getModelo() == null || veiculo.getModelo().trim().isEmpty()) {
+            throw new RegraNegocioException("O modelo do veículo é obrigatório.");
+        }
+
+        if (veiculo.getPlaca() == null || veiculo.getPlaca().trim().isEmpty()) {
+            throw new RegraNegocioException("A placa do veículo é obrigatória.");
+        }
+
+        if (veiculo.getCor() == null || veiculo.getCor().trim().isEmpty()) {
+            throw new RegraNegocioException("A cor do veículo é obrigatória.");
+        }
+
+        if (veiculo.getAno() == null || veiculo.getAno().trim().isEmpty()) {
+            throw new RegraNegocioException("O ano do veículo é obrigatório.");
+        }
+
+        if (veiculo.getPreco() == null || veiculo.getPreco() <= 0) {
+            throw new RegraNegocioException("O preço do veículo deve ser maior que zero.");
+        }
+
+        if (veiculo.getCondicao() == null || veiculo.getCondicao().trim().isEmpty()) {
+            throw new RegraNegocioException("A condição do veículo é obrigatória.");
+        }
+
+        if (veiculo.getEmpresa() == null || veiculo.getEmpresa().getId() == null) {
+            throw new RegraNegocioException("A empresa do veículo é obrigatória.");
+        }
+
+        if (veiculo.getCategoria() == null || veiculo.getCategoria().getId() == null) {
+            throw new RegraNegocioException("A categoria do veículo é obrigatória.");
+        }
+
+        if (veiculo.getMarca() == null || veiculo.getMarca().getId() == null) {
+            throw new RegraNegocioException("A marca do veículo é obrigatória.");
+        }
+
+        if (veiculo.getTipo() == null || veiculo.getTipo().getId() == null) {
+            throw new RegraNegocioException("O tipo do veículo é obrigatório.");
+        }
+
+        if (veiculo.getFoto() == null) {
+            throw new RegraNegocioException("Pelo menos uma foto do veículo é obrigatória.");
+        }
+    }
+
 }

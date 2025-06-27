@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Favorito{
+public class Favorito {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +20,11 @@ public class Favorito{
 
     private LocalDateTime dataFavorito;
     private String descricao;
+
+    @ManyToOne
+    private Usuario usuario;
+
+    @ManyToOne
+    private Veiculo veiculo;
 }
+

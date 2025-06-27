@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.PropostaRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,18 @@ public class PropostaService {
         repository.delete(proposta);
     }
 
-    public void validar(Proposta proposta) {}
+    public void validar(Proposta proposta) {
+        if (proposta.getValor() == null || proposta.getValor() <= 0) {
+            throw new RegraNegocioException("O valor da proposta deve ser maior que zero.");
+        }
+
+        if (proposta.getUsuario() == null || proposta.getUsuario().getId() == null) {
+            throw new RegraNegocioException("A proposta deve estar associada a um usuário.");
+        }
+
+        if (proposta.getDescricao() != null && proposta.getDescricao().length() > 255) {
+            throw new RegraNegocioException("A descrição da proposta não pode ultrapassar 255 caracteres.");
+        }
+    }
+
 }

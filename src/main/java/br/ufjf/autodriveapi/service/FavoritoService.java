@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.FavoritoRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,19 @@ public class FavoritoService {
         repository.delete(favorito);
     }
 
-    public void validar(Favorito favorito) {}
+    public void validar(Favorito favorito) {
+
+        if (favorito.getUsuario() == null || favorito.getUsuario().getId() == null) {
+            throw new RegraNegocioException("É necessário informar o usuário que favoritou.");
+        }
+
+        if (favorito.getVeiculo() == null || favorito.getVeiculo().getId() == null) {
+            throw new RegraNegocioException("É necessário informar o veículo favoritado.");
+        }
+
+        if (favorito.getDescricao() != null && favorito.getDescricao().length() > 255) {
+            throw new RegraNegocioException("A descrição não pode ultrapassar 255 caracteres.");
+        }
+    }
+
 }
