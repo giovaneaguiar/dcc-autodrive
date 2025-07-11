@@ -6,17 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class FotoDTO {
-
     private String foto;
 
     public static FotoDTO create(Foto foto) {
         ModelMapper modelMapper = new ModelMapper();
         FotoDTO dto = modelMapper.map(foto, FotoDTO.class);
         return dto;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

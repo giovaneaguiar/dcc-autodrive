@@ -6,12 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class FinanciamentoDTO {
-
     private Double valor;
     private Integer parcela;
     private String observacao;
@@ -25,5 +20,53 @@ public class FinanciamentoDTO {
         FinanciamentoDTO dto = modelMapper.map(financiamento, FinanciamentoDTO.class);
         dto.valorFinalVenda= financiamento.getVenda().getValorFinal();
         return dto;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public Integer getParcela() {
+        return parcela;
+    }
+
+    public void setParcela(Integer parcela) {
+        this.parcela = parcela;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public Boolean getAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(Boolean aprovado) {
+        this.aprovado = aprovado;
+    }
+
+    public Long getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(Long idVenda) {
+        this.idVenda = idVenda;
+    }
+
+    public Double getValorFinalVenda() {
+        return valorFinalVenda;
+    }
+
+    public void setValorFinalVenda(Double valorFinalVenda) {
+        this.valorFinalVenda = valorFinalVenda;
     }
 }

@@ -8,10 +8,6 @@ import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class VendaDTO {
 
     private LocalDateTime dataVenda;
@@ -29,5 +25,61 @@ public class VendaDTO {
         dto.nomeUsuario = venda.getUsuario().getNome();
         dto.nomeVeiculo = venda.getVeiculo().getDescricao();
         return dto;
+    }
+
+    public LocalDateTime getDataVenda() {
+        return dataVenda;
+    }
+
+    public void setDataVenda(LocalDateTime dataVenda) {
+        this.dataVenda = dataVenda;
+    }
+
+    public double getValorFinal() {
+        return valorFinal;
+    }
+
+    public void setValorFinal(double valorFinal) {
+        this.valorFinal = valorFinal;
+    }
+
+    public boolean isConcluido() {
+        return concluido;
+    }
+
+    public void setConcluido(boolean concluido) {
+        this.concluido = concluido;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Long getIdVeiculo() {
+        return idVeiculo;
+    }
+
+    public void setIdVeiculo(Long idVeiculo) {
+        this.idVeiculo = idVeiculo;
+    }
+
+    public String getNomeVeiculo() {
+        return nomeVeiculo;
+    }
+
+    public void setNomeVeiculo(String nomeVeiculo) {
+        this.nomeVeiculo = nomeVeiculo;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 }

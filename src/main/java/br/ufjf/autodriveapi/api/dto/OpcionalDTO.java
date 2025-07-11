@@ -6,13 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OpcionalDTO {
-
     private String descricao;
     private Boolean arCondicionado;
     private Boolean direcaoHidraulica;
@@ -25,5 +19,61 @@ public class OpcionalDTO {
         ModelMapper modelMapper = new ModelMapper();
         OpcionalDTO dto = modelMapper.map(opcional, OpcionalDTO.class);
         return dto;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Boolean getArCondicionado() {
+        return arCondicionado;
+    }
+
+    public void setArCondicionado(Boolean arCondicionado) {
+        this.arCondicionado = arCondicionado;
+    }
+
+    public Boolean getDirecaoHidraulica() {
+        return direcaoHidraulica;
+    }
+
+    public void setDirecaoHidraulica(Boolean direcaoHidraulica) {
+        this.direcaoHidraulica = direcaoHidraulica;
+    }
+
+    public Boolean getVidroEletrico() {
+        return vidroEletrico;
+    }
+
+    public void setVidroEletrico(Boolean vidroEletrico) {
+        this.vidroEletrico = vidroEletrico;
+    }
+
+    public Boolean getCameraRe() {
+        return cameraRe;
+    }
+
+    public void setCameraRe(Boolean cameraRe) {
+        this.cameraRe = cameraRe;
+    }
+
+    public Boolean getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Boolean sensor) {
+        this.sensor = sensor;
+    }
+
+    public Boolean getCompleto() {
+        return completo;
+    }
+
+    public void setCompleto(Boolean completo) {
+        this.completo = completo;
     }
 }

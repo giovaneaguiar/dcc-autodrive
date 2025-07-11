@@ -6,16 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class CategoriaDTO {
-
     private String descricao;
 
     public static CategoriaDTO create(Categoria categoria) {
         ModelMapper modelMapper = new ModelMapper();
         CategoriaDTO dto = modelMapper.map(categoria, CategoriaDTO.class);
         return dto;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }

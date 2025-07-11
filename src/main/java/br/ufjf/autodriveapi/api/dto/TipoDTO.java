@@ -6,10 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class TipoDTO {
 
     private String nome;
@@ -18,5 +14,13 @@ public class TipoDTO {
         ModelMapper modelMapper = new ModelMapper();
         TipoDTO dto = modelMapper.map(tipo, TipoDTO.class);
         return dto;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

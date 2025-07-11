@@ -8,12 +8,7 @@ import org.modelmapper.ModelMapper;
 
 import java.util.Date;
 
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class AnuncioDTO {
-
     private Date dataAnuncio;
     private Double preco;
     private String descricao;
@@ -25,4 +20,45 @@ public class AnuncioDTO {
         AnuncioDTO dto = modelMapper.map(anuncio, AnuncioDTO.class);
         return dto;
     }
+
+    public Date getDataAnuncio() {
+        return dataAnuncio;
+    }
+
+    public void setDataAnuncio(Date dataAnuncio) {
+        this.dataAnuncio = dataAnuncio;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public Boolean getVendido() {
+        return vendido;
+    }
+
+    public void setVendido(Boolean vendido) {
+        this.vendido = vendido;
+    }
+
 }

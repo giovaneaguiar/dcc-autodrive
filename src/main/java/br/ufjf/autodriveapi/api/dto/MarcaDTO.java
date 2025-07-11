@@ -7,16 +7,23 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class MarcaDTO {
-
     private String nome;
 
     public static MarcaDTO create(Marca marca) {
         ModelMapper modelMapper = new ModelMapper();
         MarcaDTO dto = modelMapper.map(marca, MarcaDTO.class);
         return dto;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
