@@ -1,0 +1,39 @@
+package br.ufjf.autodriveapi.api.controller;
+
+import br.ufjf.autodriveapi.api.dto.OpcionalDTO;
+import br.ufjf.autodriveapi.model.entity.Opcional;
+import br.ufjf.autodriveapi.service.OpcionalService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/api/v1/opcionais")
+@CrossOrigin
+
+public class OpcionalController {
+
+        private final OpcionalService service;
+
+        public OpcionalController(OpcionalService service) {
+            this.service = service;
+        }
+
+        @GetMapping()
+        public ResponseEntity get() {
+            List<Opcional> opcionais = service.getOpcional();
+            return ResponseEntity.ok(opcionais.stream().map(OpcionalDTO::create).collect(Collectors.toList()));
+        }
+        @GetMapping("/{id}")
+        public ResponseEntity get(@PathVariable("id") Long id) {
+            Optional<Opcional> opcional = service.getOpcionalById(id);
+            if(!opcional.isPresent()) {
+                return new ResponseEntity("Opcionais não encontrada", HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.ok(opcional.map(OpcionalDTO::create));
+        }
+}
