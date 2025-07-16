@@ -1,8 +1,14 @@
 package br.ufjf.autodriveapi.api.controller;
 
 import br.ufjf.autodriveapi.api.dto.FinanciamentoDTO;
+import br.ufjf.autodriveapi.api.dto.FinanciamentoDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.entity.Financiamento;
+import br.ufjf.autodriveapi.model.entity.Financiamento;
+import br.ufjf.autodriveapi.model.entity.Venda;
 import br.ufjf.autodriveapi.service.FinanciamentoService;
+import br.ufjf.autodriveapi.service.VendaService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +24,11 @@ import java.util.stream.Collectors;
 public class FinanciamentoController {
 
         private final FinanciamentoService service;
+        private final VendaService vendaService;
 
-        public FinanciamentoController(FinanciamentoService service) {
+        public FinanciamentoController(FinanciamentoService service, VendaService vendaService) {
             this.service = service;
+            this.vendaService = vendaService;
         }
 
         @GetMapping()
@@ -35,5 +43,31 @@ public class FinanciamentoController {
                 return new ResponseEntity("Financiamento não encontrada", HttpStatus.NOT_FOUND);
             }
             return ResponseEntity.ok(financiamento.map(FinanciamentoDTO::create));
+        }
+
+        @PostMapping()
+        public ResponseEntity post(@RequestBody FinanciamentoDTO dto) {
+            try {
+                Financiamento financiamento = converter(dto);
+                financiamento = service.salvar(financiamento);
+                return new ResponseEntity(financiamento, HttpStatus.CREATED);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        //venda e finalvenda
+        public Financiamento converter(FinanciamentoDTO dto) {
+            ModelMapper modelMapper = new ModelMapper();
+            Financiamento financiamento = modelMapper.map(dto, Financiamento.class);
+            if (dto.getIdVenda() != null) {
+                Optional<Venda> venda = vendaService.getVendaById(dto.getIdVenda());
+                if (!venda.isPresent()) {
+                    financiamento.setVenda(null);
+                } else {
+                    financiamento.setVenda(venda.get());
+                }
+            }
+            return financiamento;
         }
 }

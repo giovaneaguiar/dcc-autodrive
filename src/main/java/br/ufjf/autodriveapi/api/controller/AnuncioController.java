@@ -1,8 +1,10 @@
 package br.ufjf.autodriveapi.api.controller;
 
 import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.service.AnuncioService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +37,22 @@ public class AnuncioController {
                 return new ResponseEntity("Anuncio não encontrada", HttpStatus.NOT_FOUND);
             }
             return ResponseEntity.ok(anuncio.map(AnuncioDTO::create));
+        }
+
+        @PostMapping()
+        public ResponseEntity post(@RequestBody AnuncioDTO dto) {
+            try {
+                Anuncio anuncio = converter(dto);
+                anuncio = service.salvar(anuncio);
+                return new ResponseEntity(anuncio, HttpStatus.CREATED);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        public Anuncio converter(AnuncioDTO dto) {
+            ModelMapper modelMapper = new ModelMapper();
+            Anuncio anuncio = modelMapper.map(dto, Anuncio.class);
+            return anuncio;
         }
 }

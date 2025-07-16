@@ -36,4 +36,6 @@ public class VendaController {
             }
             return ResponseEntity.ok(venda.map(VendaDTO::create));
         }
+
+        //usuario e veiculo
 }

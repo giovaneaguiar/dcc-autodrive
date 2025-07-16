@@ -36,4 +36,6 @@ public class PropostaController {
             }
             return ResponseEntity.ok(proposta.map(PropostaDTO::create));
         }
+
+        //usuario
 }

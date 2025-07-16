@@ -36,4 +36,6 @@ public class UsuarioController {
             }
             return ResponseEntity.ok(usuario.map(UsuarioDTO::create));
         }
+
+        //empresa
 }

@@ -1,8 +1,12 @@
 package br.ufjf.autodriveapi.api.controller;
 
 import br.ufjf.autodriveapi.api.dto.CategoriaDTO;
+import br.ufjf.autodriveapi.api.dto.CategoriaDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Categoria;
 import br.ufjf.autodriveapi.model.entity.Categoria;
 import br.ufjf.autodriveapi.service.CategoriaService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +39,22 @@ public class CategoriaController {
                 return new ResponseEntity("Categoria não encontrada", HttpStatus.NOT_FOUND);
             }
             return ResponseEntity.ok(categoria.map(CategoriaDTO::create));
+        }
+
+        @PostMapping()
+        public ResponseEntity post(@RequestBody CategoriaDTO dto) {
+            try {
+                Categoria categoria = converter(dto);
+                categoria = service.salvar(categoria);
+                return new ResponseEntity(categoria, HttpStatus.CREATED);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        public Categoria converter(CategoriaDTO dto) {
+            ModelMapper modelMapper = new ModelMapper();
+            Categoria categoria = modelMapper.map(dto, Categoria.class);
+            return categoria;
         }
 }

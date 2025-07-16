@@ -36,4 +36,6 @@ public class PagamentoController {
             }
             return ResponseEntity.ok(pagamento.map(PagamentoDTO::create));
         }
+
+        //venda
 }

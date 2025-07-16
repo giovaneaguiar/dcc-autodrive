@@ -36,4 +36,7 @@ public class VeiculoController {
             }
             return ResponseEntity.ok(veiculo.map(VeiculoDTO::create));
         }
+
+//     Empresa Categoria; Marca; Opcional; TipoVeiculo; Foto;
+
 }

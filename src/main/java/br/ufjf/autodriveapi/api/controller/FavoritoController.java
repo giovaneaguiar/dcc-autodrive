@@ -1,8 +1,12 @@
 package br.ufjf.autodriveapi.api.controller;
 
 import br.ufjf.autodriveapi.api.dto.FavoritoDTO;
+import br.ufjf.autodriveapi.api.dto.FavoritoDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Favorito;
 import br.ufjf.autodriveapi.model.entity.Favorito;
 import br.ufjf.autodriveapi.service.FavoritoService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +39,22 @@ public class FavoritoController {
                 return new ResponseEntity("Categoria não encontrada", HttpStatus.NOT_FOUND);
             }
             return ResponseEntity.ok(favoritos.map(FavoritoDTO::create));
+        }
+
+        @PostMapping()
+        public ResponseEntity post(@RequestBody FavoritoDTO dto) {
+            try {
+                Favorito favorito = converter(dto);
+                favorito = service.salvar(favorito);
+                return new ResponseEntity(favorito, HttpStatus.CREATED);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        public Favorito converter(FavoritoDTO dto) {
+            ModelMapper modelMapper = new ModelMapper();
+            Favorito favorito = modelMapper.map(dto, Favorito.class);
+            return favorito;
         }
 }
