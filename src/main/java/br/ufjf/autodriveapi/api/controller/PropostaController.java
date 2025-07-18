@@ -1,8 +1,14 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.NotificacaoDTO;
 import br.ufjf.autodriveapi.api.dto.PropostaDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Notificacao;
 import br.ufjf.autodriveapi.model.entity.Proposta;
+import br.ufjf.autodriveapi.model.entity.Usuario;
 import br.ufjf.autodriveapi.service.PropostaService;
+import br.ufjf.autodriveapi.service.UsuarioService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +23,20 @@ import java.util.stream.Collectors;
 
 public class PropostaController {
 
-        private final PropostaService service;
+    private final PropostaService service;
+    private final UsuarioService usuarioService;
 
-        public PropostaController(PropostaService service) {
+    public PropostaController(PropostaService service, UsuarioService usuarioService) {
             this.service = service;
-        }
+        this.usuarioService = usuarioService;
+    }
 
         @GetMapping()
         public ResponseEntity get() {
             List<Proposta> propostas = service.getProposta();
             return ResponseEntity.ok(propostas.stream().map(PropostaDTO::create).collect(Collectors.toList()));
         }
+
         @GetMapping("/{id}")
         public ResponseEntity get(@PathVariable("id") Long id) {
             Optional<Proposta> proposta = service.getPropostaById(id);
@@ -37,5 +46,33 @@ public class PropostaController {
             return ResponseEntity.ok(proposta.map(PropostaDTO::create));
         }
 
-        //usuario
+        @PostMapping
+        public ResponseEntity post(@RequestBody PropostaDTO dto) {
+            try {
+                Proposta proposta = converter(dto);
+                proposta = service.salvar(proposta);
+                return new ResponseEntity(proposta, HttpStatus.CREATED);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+
+        }
+
+        public Proposta converter(PropostaDTO dto) {
+            ModelMapper modelMapper = new ModelMapper();
+            Proposta proposta = modelMapper.map(dto, Proposta.class);
+
+            if(dto.getIdUsuario() != null) {
+                Optional<Usuario> usuario = usuarioService.getUsuarioById(dto.getIdUsuario());
+                if(!usuario.isPresent()) {
+                    proposta.setUsuario(null);
+                } else {
+                    proposta.setUsuario(usuario.get());
+                }
+            }
+
+            return proposta;
+        }
 }

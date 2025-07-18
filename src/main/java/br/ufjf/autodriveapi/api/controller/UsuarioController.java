@@ -1,8 +1,11 @@
 package br.ufjf.autodriveapi.api.controller;
 
 import br.ufjf.autodriveapi.api.dto.UsuarioDTO;
+import br.ufjf.autodriveapi.model.entity.Empresa;
 import br.ufjf.autodriveapi.model.entity.Usuario;
+import br.ufjf.autodriveapi.service.EmpresaService;
 import br.ufjf.autodriveapi.service.UsuarioService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +21,12 @@ import java.util.stream.Collectors;
 public class UsuarioController {
 
         private final UsuarioService service;
+    private final EmpresaService empresaService;
 
-        public UsuarioController(UsuarioService service) {
+    public UsuarioController(UsuarioService service, EmpresaService empresaService) {
             this.service = service;
-        }
+        this.empresaService = empresaService;
+    }
 
         @GetMapping()
         public ResponseEntity get() {
@@ -37,5 +42,28 @@ public class UsuarioController {
             return ResponseEntity.ok(usuario.map(UsuarioDTO::create));
         }
 
-        //empresa
+        @PostMapping
+        public ResponseEntity post(@RequestBody UsuarioDTO dto) {
+            try {
+                Usuario usuario = converter(dto);
+                usuario = service.salvar(usuario);
+                return new ResponseEntity(usuario, HttpStatus.CREATED);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        public Usuario converter(UsuarioDTO dto) {
+            ModelMapper modelMapper = new ModelMapper();
+            Usuario usuario = modelMapper.map(dto, Usuario.class);
+            if(dto.getIdEmpresa() != null) {
+                Optional<Empresa> empresa = empresaService.getEmpresaById(dto.getIdEmpresa());
+                if(!empresa.isPresent()){
+                    usuario.setEmpresa(null);
+                }else {
+                    usuario.setEmpresa(empresa.get());
+                }
+            }
+            return usuario;
+        }
 }

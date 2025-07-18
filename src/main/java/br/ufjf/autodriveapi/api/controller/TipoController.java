@@ -3,6 +3,7 @@ package br.ufjf.autodriveapi.api.controller;
 import br.ufjf.autodriveapi.api.dto.TipoDTO;
 import br.ufjf.autodriveapi.model.entity.Tipo;
 import br.ufjf.autodriveapi.service.TipoService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,22 @@ public class TipoController {
                 return new ResponseEntity("Categoria não encontrada", HttpStatus.NOT_FOUND);
             }
             return ResponseEntity.ok(tipo.map(TipoDTO::create));
+        }
+
+        @PostMapping
+        public ResponseEntity post(@RequestBody TipoDTO dto) {
+            try{
+                Tipo tipo = converter(dto);
+                tipo = service.salvar(tipo);
+                return new ResponseEntity(tipo, HttpStatus.CREATED);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+
+        }
+        public Tipo converter (TipoDTO dto){
+            ModelMapper modelMapper = new ModelMapper();
+            Tipo tipo = modelMapper.map(dto, Tipo.class);
+            return tipo;
         }
 }

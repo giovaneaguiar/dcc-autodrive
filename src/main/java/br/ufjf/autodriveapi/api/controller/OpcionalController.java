@@ -1,8 +1,12 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.NotificacaoDTO;
 import br.ufjf.autodriveapi.api.dto.OpcionalDTO;
+import br.ufjf.autodriveapi.model.entity.Notificacao;
 import br.ufjf.autodriveapi.model.entity.Opcional;
+import br.ufjf.autodriveapi.model.entity.Usuario;
 import br.ufjf.autodriveapi.service.OpcionalService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,4 +40,22 @@ public class OpcionalController {
             }
             return ResponseEntity.ok(opcional.map(OpcionalDTO::create));
         }
+
+        @PostMapping()
+        public ResponseEntity post(@RequestBody OpcionalDTO dto) {
+            try {
+                Opcional opcional = converter(dto);
+                opcional = service.salvar(opcional);
+                return new ResponseEntity(opcional, HttpStatus.CREATED);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        public Opcional converter(OpcionalDTO dto) {
+            ModelMapper modelMapper = new ModelMapper();
+            Opcional opcional = modelMapper.map(dto, Opcional.class);
+            return opcional;
+        }
+
 }
