@@ -63,8 +63,22 @@ public class VeiculoController {
     }
 
     public Veiculo converter(VeiculoDTO dto) {
-        ModelMapper modelMapper = new ModelMapper();
-        Veiculo veiculo = modelMapper.map(dto, Veiculo.class);
+//        ModelMapper modelMapper = new ModelMapper();
+//        Veiculo veiculo = modelMapper.map(dto, Veiculo.class);
+        Veiculo veiculo = new Veiculo();
+
+        veiculo.setPlaca(dto.getPlaca());
+        veiculo.setModelo(dto.getModelo());
+        veiculo.setCor(dto.getCor());
+        veiculo.setAno(dto.getAno());
+        veiculo.setVersao(dto.getVersao());
+        veiculo.setQuilometragem(dto.getQuilometragem());
+        veiculo.setDescricao(dto.getDescricao());
+        veiculo.setPreco(dto.getPreco());
+        veiculo.setAtivo(dto.getAtivo());
+        veiculo.setCondicao(dto.getCondicao());
+        veiculo.setAnuncio(dto.getAnuncio());
+
         if (dto.getIdEmpresa() != null) {
             Optional<Empresa> empresa = empresaService.getEmpresaById(dto.getIdEmpresa());
             if (!empresa.isPresent()) {
@@ -95,15 +109,6 @@ public class VeiculoController {
                 veiculo.setOpcional(null);
             } else {
                 veiculo.setOpcional(opcional.get());
-            }
-
-            if (dto.getIdTipoVeiculo() != null) {
-                Optional<Tipo> tipo = tipoService.getTipoById(dto.getIdTipoVeiculo());
-                if (!tipo.isPresent()) {
-                    veiculo.setTipo(null);
-                } else {
-                    veiculo.setTipo(tipo.get());
-                }
             }
 
             if (dto.getIdFoto() != null) {

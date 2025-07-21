@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class VendaController {
 
-        private final VendaService service;
+    private final VendaService service;
     private final UsuarioService usuarioService;
     private final VeiculoService veiculoService;
 
@@ -58,8 +58,14 @@ public class VendaController {
         }
 
         public Venda converter(VendaDTO dto){
-            ModelMapper modelMapper = new ModelMapper();
-            Venda venda = modelMapper.map(dto, Venda.class);
+//            ModelMapper modelMapper = new ModelMapper();
+//            Venda venda = modelMapper.map(dto, Venda.class);
+            Venda venda = new Venda();
+
+            venda.setDataVenda(dto.getDataVenda());
+            venda.setValorFinal(dto.getValorFinal());
+            venda.setConcluido(dto.getConcluido());
+            venda.setStatus(dto.getStatus());
 
             if(dto.getIdUsuario() != null){
                 Optional<Usuario> usuario = usuarioService.getUsuarioById(dto.getIdUsuario());

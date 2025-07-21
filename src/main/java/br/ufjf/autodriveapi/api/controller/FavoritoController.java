@@ -1,10 +1,13 @@
 package br.ufjf.autodriveapi.api.controller;
 
 import br.ufjf.autodriveapi.api.dto.FavoritoDTO;
-import br.ufjf.autodriveapi.api.dto.FavoritoDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.entity.Favorito;
-import br.ufjf.autodriveapi.model.entity.Favorito;
+
+import br.ufjf.autodriveapi.model.entity.Veiculo;
+import br.ufjf.autodriveapi.service.VeiculoService;
+import br.ufjf.autodriveapi.service.UsuarioService;
+import br.ufjf.autodriveapi.model.entity.Usuario;
 import br.ufjf.autodriveapi.service.FavoritoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -22,9 +25,15 @@ import java.util.stream.Collectors;
 public class FavoritoController {
 
         private final FavoritoService service;
+        private final UsuarioService usuarioService;
+        private final VeiculoService veiculoService;
 
-        public FavoritoController(FavoritoService service) {
+
+        public FavoritoController(FavoritoService service, UsuarioService usuarioService, VeiculoService veiculoService) {
+
             this.service = service;
+            this.usuarioService = usuarioService;
+            this.veiculoService = veiculoService;
         }
 
         @GetMapping()
@@ -53,8 +62,31 @@ public class FavoritoController {
         }
 
         public Favorito converter(FavoritoDTO dto) {
-            ModelMapper modelMapper = new ModelMapper();
-            Favorito favorito = modelMapper.map(dto, Favorito.class);
+//            ModelMapper modelMapper = new ModelMapper();
+//            Favorito favorito = modelMapper.map(dto, Favorito.class);
+
+            Favorito favorito = new Favorito();
+            favorito.setDataFavorito(dto.getDataFavorito());
+            favorito.setDescricao(dto.getDescricao());
+
+            if(dto.getIdUsuario() != null){
+                Optional<Usuario> usuario = usuarioService.getUsuarioById(dto.getIdUsuario());
+                if(!usuario.isPresent()){
+                    favorito.setUsuario(null);
+                }else{
+                    favorito.setUsuario(usuario.get());
+                }
+
+            }
+
+            if(dto.getIdVeiculo() != null){
+                Optional<Veiculo> veiculo = veiculoService.getVeiculoById(dto.getIdVeiculo());
+                if(!veiculo.isPresent()){
+                    favorito.setVeiculo(null);
+                }else{
+                    favorito.setVeiculo(veiculo.get());
+                }
+            }
             return favorito;
         }
 }
