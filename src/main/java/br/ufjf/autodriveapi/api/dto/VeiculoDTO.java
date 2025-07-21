@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import java.util.Date;
 
 public class VeiculoDTO {
+    private Long id;
 
     private String placa;
     private String modelo;
@@ -26,7 +27,7 @@ public class VeiculoDTO {
     private Long idCategoria;
     private Long idMarca;
     private Long idOpcional;
-    private Long idTipoVeiculo;
+    private Long idTipo;
     private Long idFoto;
 
     private String nomeEmpresa;
@@ -43,7 +44,6 @@ public class VeiculoDTO {
         dto.nomeCategoria = veiculo.getCategoria().getDescricao();
         dto.nomeMarca = veiculo.getMarca().getNome();
         dto.opcional = veiculo.getOpcional().getDescricao();
-        dto.nomeTipoVeiculo = veiculo.getTipo().getNome();
         dto.foto = veiculo.getFoto().getFoto();
         return dto;
     }
@@ -168,12 +168,12 @@ public class VeiculoDTO {
         this.idOpcional = idOpcional;
     }
 
-    public Long getIdTipoVeiculo() {
-        return idTipoVeiculo;
+    public Long getIdTipo() {
+        return idTipo;
     }
 
-    public void setIdTipoVeiculo(Long idTipoVeiculo) {
-        this.idTipoVeiculo = idTipoVeiculo;
+    public void setIdTipo(Long idTipo) {
+        this.idTipo = idTipo;
     }
 
     public Long getIdFoto() {
@@ -230,5 +230,13 @@ public class VeiculoDTO {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Long getIdVeiculo() {
+        return id;
+    }
+
+    public void setIdVeiculo(Long id) {
+        this.id = id;
     }
 }

@@ -13,6 +13,11 @@ public class VendaDTO {
     private LocalDateTime dataVenda;
     private double valorFinal;
     private boolean concluido;
+    private String status;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     private Long idUsuario;
     private Long idVeiculo;
@@ -43,7 +48,7 @@ public class VendaDTO {
         this.valorFinal = valorFinal;
     }
 
-    public boolean isConcluido() {
+    public boolean getConcluido() {
         return concluido;
     }
 
@@ -81,5 +86,13 @@ public class VendaDTO {
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
+    }
+
+    public boolean isConcluido() {
+        return concluido;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

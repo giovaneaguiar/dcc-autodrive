@@ -9,6 +9,25 @@ public class FavoritoDTO {
     private LocalDateTime dataFavorito;
     private String descricao;
 
+    private Long idUsuario;
+    private Long idVeiculo;
+
+    public Long getIdVeiculo() {
+        return idVeiculo;
+    }
+
+    public void setIdVeiculo(Long idVeiculo) {
+        this.idVeiculo = idVeiculo;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public static FavoritoDTO create(Favorito favorito) {
         ModelMapper modelMapper = new ModelMapper();
         FavoritoDTO dto = modelMapper.map(favorito, FavoritoDTO.class);
