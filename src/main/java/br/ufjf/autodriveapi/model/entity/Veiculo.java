@@ -32,15 +32,15 @@ public class Veiculo {
 
     @ManyToOne
     private Empresa empresa;
-    @OneToOne
+    @ManyToOne
     private Categoria categoria;
-    @OneToOne
+    @ManyToOne
     private Marca marca;
-    @OneToOne
+    @ManyToOne
     private Opcional opcional;
-    @OneToOne
+    @ManyToOne
     private Tipo tipo;
-    @OneToOne
+    @ManyToOne
     private Foto foto;
 
     public Veiculo() {
@@ -63,7 +63,6 @@ public class Veiculo {
         this.categoria = categoria;
         this.marca = marca;
         this.opcional = opcional;
-        this.tipo = tipo;
         this.foto = foto;
     }
 
@@ -193,14 +192,6 @@ public class Veiculo {
 
     public void setOpcional(Opcional opcional) {
         this.opcional = opcional;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
     }
 
     public Foto getFoto() {
