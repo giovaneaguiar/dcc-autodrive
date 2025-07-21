@@ -75,10 +75,6 @@ public class VeiculoService {
             throw new RegraNegocioException("A marca do veículo é obrigatória.");
         }
 
-        if (veiculo.getTipo() == null || veiculo.getTipo().getId() == null) {
-            throw new RegraNegocioException("O tipo do veículo é obrigatório.");
-        }
-
         if (veiculo.getFoto() == null) {
             throw new RegraNegocioException("Pelo menos uma foto do veículo é obrigatória.");
         }
