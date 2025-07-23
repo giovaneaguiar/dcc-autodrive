@@ -1,8 +1,11 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
+import br.ufjf.autodriveapi.api.dto.FavoritoDTO;
 import br.ufjf.autodriveapi.api.dto.FinanciamentoDTO;
 import br.ufjf.autodriveapi.api.dto.FinanciamentoDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Financiamento;
 import br.ufjf.autodriveapi.model.entity.Financiamento;
 import br.ufjf.autodriveapi.model.entity.Venda;
@@ -55,6 +58,21 @@ public class FinanciamentoController {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FinanciamentoDTO dto) {
+        if (!service.getFinanciamentoById(id).isPresent()) {
+            return new ResponseEntity("Financiamento não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Financiamento financiamento = converter(dto);
+            financiamento.setId(id);
+            service.salvar(financiamento);
+            return ResponseEntity.ok(financiamento);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
         //venda e finalvenda
         public Financiamento converter(FinanciamentoDTO dto) {

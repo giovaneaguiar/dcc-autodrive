@@ -1,7 +1,9 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.FavoritoDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Favorito;
 
 import br.ufjf.autodriveapi.model.entity.Veiculo;
@@ -60,6 +62,21 @@ public class FavoritoController {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FavoritoDTO dto) {
+        if (!service.getFavoritoById(id).isPresent()) {
+            return new ResponseEntity("Favorito não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Favorito favorito = converter(dto);
+            favorito.setId(id);
+            service.salvar(favorito);
+            return ResponseEntity.ok(favorito);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
         public Favorito converter(FavoritoDTO dto) {
 //            ModelMapper modelMapper = new ModelMapper();

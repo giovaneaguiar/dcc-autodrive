@@ -50,6 +50,21 @@ public class AnuncioController {
             }
         }
 
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody AnuncioDTO dto) {
+            if (!service.getAnuncioById(id).isPresent()) {
+                return new ResponseEntity("Anúncio não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Anuncio anuncio = converter(dto);
+                anuncio.setId(id);
+                service.salvar(anuncio);
+                return ResponseEntity.ok(anuncio);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
         public Anuncio converter(AnuncioDTO dto) {
             ModelMapper modelMapper = new ModelMapper();
             Anuncio anuncio = modelMapper.map(dto, Anuncio.class);

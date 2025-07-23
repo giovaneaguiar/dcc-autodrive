@@ -1,8 +1,10 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.CategoriaDTO;
 import br.ufjf.autodriveapi.api.dto.CategoriaDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Categoria;
 import br.ufjf.autodriveapi.model.entity.Categoria;
 import br.ufjf.autodriveapi.service.CategoriaService;
@@ -51,6 +53,21 @@ public class CategoriaController {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody CategoriaDTO dto) {
+        if (!service.getCategoriaById(id).isPresent()) {
+            return new ResponseEntity("Categoria não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Categoria categoria = converter(dto);
+            categoria.setId(id);
+            service.salvar(categoria);
+            return ResponseEntity.ok(categoria);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
         public Categoria converter(CategoriaDTO dto) {
             ModelMapper modelMapper = new ModelMapper();

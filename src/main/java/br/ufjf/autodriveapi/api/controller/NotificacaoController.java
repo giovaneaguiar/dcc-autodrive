@@ -1,8 +1,10 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.NotificacaoDTO;
 import br.ufjf.autodriveapi.api.dto.NotificacaoDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Notificacao;
 import br.ufjf.autodriveapi.model.entity.Notificacao;
 import br.ufjf.autodriveapi.model.entity.Usuario;
@@ -51,6 +53,21 @@ public class NotificacaoController {
                 Notificacao notificacao = converter(dto);
                 notificacao = service.salvar(notificacao);
                 return new ResponseEntity(notificacao, HttpStatus.CREATED);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody NotificacaoDTO dto) {
+            if (!service.getNotificacaoById(id).isPresent()) {
+                return new ResponseEntity("Notificação não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Notificacao notificacao = converter(dto);
+                notificacao.setId(id);
+                service.salvar(notificacao);
+                return ResponseEntity.ok(notificacao);
             } catch (RegraNegocioException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }

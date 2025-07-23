@@ -1,6 +1,8 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.VeiculoDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.entity.*;
 import br.ufjf.autodriveapi.service.*;
 import org.modelmapper.ModelMapper;
@@ -58,6 +60,21 @@ public class VeiculoController {
             veiculo = service.salvar(veiculo);
             return new ResponseEntity(veiculo, HttpStatus.CREATED);
         } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody VeiculoDTO dto) {
+        if (!service.getVeiculoById(id).isPresent()) {
+            return new ResponseEntity("Veículo não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Veiculo veiculo = converter(dto);
+            veiculo.setId(id);
+            service.salvar(veiculo);
+            return ResponseEntity.ok(veiculo);
+        } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

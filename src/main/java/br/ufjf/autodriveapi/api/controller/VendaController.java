@@ -1,6 +1,9 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.VendaDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Usuario;
 import br.ufjf.autodriveapi.model.entity.Veiculo;
 import br.ufjf.autodriveapi.model.entity.Venda;
@@ -53,6 +56,21 @@ public class VendaController {
                 venda = service.salvar(venda);
                 return new ResponseEntity(venda, HttpStatus.CREATED);
             }catch (Exception e){
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody VendaDTO dto) {
+            if (!service.getVendaById(id).isPresent()) {
+                return new ResponseEntity("Venda não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Venda venda = converter(dto);
+                venda.setId(id);
+                service.salvar(venda);
+                return ResponseEntity.ok(venda);
+            } catch (RegraNegocioException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }

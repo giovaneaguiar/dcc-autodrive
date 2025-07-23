@@ -1,8 +1,10 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.NotificacaoDTO;
 import br.ufjf.autodriveapi.api.dto.PropostaDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Notificacao;
 import br.ufjf.autodriveapi.model.entity.Proposta;
 import br.ufjf.autodriveapi.model.entity.Usuario;
@@ -58,6 +60,21 @@ public class PropostaController {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
 
+        }
+
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody PropostaDTO dto) {
+            if (!service.getPropostaById(id).isPresent()) {
+                return new ResponseEntity("Proposta não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Proposta proposta = converter(dto);
+                proposta.setId(id);
+                service.salvar(proposta);
+                return ResponseEntity.ok(proposta);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
 
         public Proposta converter(PropostaDTO dto) {

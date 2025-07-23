@@ -1,6 +1,9 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.UsuarioDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Empresa;
 import br.ufjf.autodriveapi.model.entity.Usuario;
 import br.ufjf.autodriveapi.service.EmpresaService;
@@ -49,6 +52,21 @@ public class UsuarioController {
                 usuario = service.salvar(usuario);
                 return new ResponseEntity(usuario, HttpStatus.CREATED);
             } catch (Exception e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody UsuarioDTO dto) {
+            if (!service.getUsuarioById(id).isPresent()) {
+                return new ResponseEntity("Usuário não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Usuario usuario = converter(dto);
+                usuario.setId(id);
+                service.salvar(usuario);
+                return ResponseEntity.ok(usuario);
+            } catch (RegraNegocioException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }

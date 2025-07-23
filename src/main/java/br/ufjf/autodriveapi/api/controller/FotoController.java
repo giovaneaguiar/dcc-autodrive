@@ -1,8 +1,10 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.FotoDTO;
 import br.ufjf.autodriveapi.api.dto.FotoDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Foto;
 import br.ufjf.autodriveapi.model.entity.Foto;
 import br.ufjf.autodriveapi.service.FotoService;
@@ -47,6 +49,21 @@ public class FotoController {
                 Foto foto = converter(dto);
                 foto = service.salvar(foto);
                 return new ResponseEntity(foto, HttpStatus.CREATED);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FotoDTO dto) {
+            if (!service.getFotoById(id).isPresent()) {
+                return new ResponseEntity("Foto não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Foto foto = converter(dto);
+                foto.setId(id);
+                service.salvar(foto);
+                return ResponseEntity.ok(foto);
             } catch (RegraNegocioException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }

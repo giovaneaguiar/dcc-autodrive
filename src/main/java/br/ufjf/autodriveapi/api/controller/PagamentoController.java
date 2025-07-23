@@ -1,13 +1,11 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.OpcionalDTO;
 import br.ufjf.autodriveapi.api.dto.PagamentoDTO;
 import br.ufjf.autodriveapi.api.dto.PropostaDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
-import br.ufjf.autodriveapi.model.entity.Opcional;
-import br.ufjf.autodriveapi.model.entity.Pagamento;
-import br.ufjf.autodriveapi.model.entity.Proposta;
-import br.ufjf.autodriveapi.model.entity.Venda;
+import br.ufjf.autodriveapi.model.entity.*;
 import br.ufjf.autodriveapi.service.PagamentoService;
 import br.ufjf.autodriveapi.service.VendaService;
 import org.modelmapper.ModelMapper;
@@ -57,6 +55,21 @@ public class PagamentoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody PagamentoDTO dto) {
+            if (!service.getPagamentoById(id).isPresent()) {
+                return new ResponseEntity("Pagamento não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Pagamento pagamento = converter(dto);
+                pagamento.setId(id);
+                service.salvar(pagamento);
+                return ResponseEntity.ok(pagamento);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
 
         public Pagamento converter(PagamentoDTO dto) {
             ModelMapper modelMapper = new ModelMapper();

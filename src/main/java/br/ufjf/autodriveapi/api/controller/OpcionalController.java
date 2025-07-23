@@ -1,7 +1,10 @@
 package br.ufjf.autodriveapi.api.controller;
 
+import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.NotificacaoDTO;
 import br.ufjf.autodriveapi.api.dto.OpcionalDTO;
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
+import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Notificacao;
 import br.ufjf.autodriveapi.model.entity.Opcional;
 import br.ufjf.autodriveapi.model.entity.Usuario;
@@ -48,6 +51,21 @@ public class OpcionalController {
                 opcional = service.salvar(opcional);
                 return new ResponseEntity(opcional, HttpStatus.CREATED);
             } catch (Exception e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody OpcionalDTO dto) {
+            if (!service.getOpcionalById(id).isPresent()) {
+                return new ResponseEntity("Opcional não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Opcional opcional = converter(dto);
+                opcional.setId(id);
+                service.salvar(opcional);
+                return ResponseEntity.ok(opcional);
+            } catch (RegraNegocioException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }
