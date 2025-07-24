@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDateTime;
 
 public class VendaDTO {
+    private Long id;
 
     private LocalDateTime dataVenda;
     private double valorFinal;
@@ -94,5 +95,13 @@ public class VendaDTO {
 
     public String getStatus() {
         return status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

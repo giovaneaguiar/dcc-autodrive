@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 public class FinanciamentoDTO {
+    private Long id;
+
     private Double valor;
     private Integer parcela;
     private String observacao;
@@ -68,5 +70,13 @@ public class FinanciamentoDTO {
 
     public void setValorFinalVenda(Double valorFinalVenda) {
         this.valorFinalVenda = valorFinalVenda;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

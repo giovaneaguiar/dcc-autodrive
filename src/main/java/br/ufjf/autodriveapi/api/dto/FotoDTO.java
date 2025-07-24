@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 public class FotoDTO {
+    private Long id;
+
     private String foto;
 
     public static FotoDTO create(Foto foto) {
@@ -21,5 +23,13 @@ public class FotoDTO {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

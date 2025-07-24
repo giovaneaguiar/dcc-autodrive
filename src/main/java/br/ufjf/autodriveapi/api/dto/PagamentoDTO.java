@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDateTime;
 
 public class PagamentoDTO {
+    private Long id;
+
     private String status;
     private String metodo;
     private LocalDateTime dataPagamento;
@@ -70,5 +72,13 @@ public class PagamentoDTO {
 
     public void setValorFinal(Double valorFinal) {
         this.valorFinal = valorFinal;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

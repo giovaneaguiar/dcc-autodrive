@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 public class EmpresaDTO {
+    private Long id;
+
     private String nome;
     private String cnpj;
     private String logradouro;
@@ -93,5 +95,13 @@ public class EmpresaDTO {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

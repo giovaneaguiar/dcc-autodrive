@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDateTime;
 
 public class FavoritoDTO {
+    private Long id;
+
     private LocalDateTime dataFavorito;
     private String descricao;
 
@@ -48,5 +50,13 @@ public class FavoritoDTO {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PropostaDTO {
+    private Long id;
 
     private String descricao;
     private Integer valor;
@@ -55,5 +56,13 @@ public class PropostaDTO {
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

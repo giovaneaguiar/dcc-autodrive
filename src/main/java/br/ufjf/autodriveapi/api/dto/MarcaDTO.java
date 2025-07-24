@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class MarcaDTO {
+    private Long id;
+
     private String nome;
 
     public static MarcaDTO create(Marca marca) {
@@ -25,5 +27,13 @@ public class MarcaDTO {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

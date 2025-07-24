@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 public class OpcionalDTO {
+    private Long id;
+
     private String descricao;
     private Boolean arCondicionado;
     private Boolean direcaoHidraulica;
@@ -75,5 +77,13 @@ public class OpcionalDTO {
 
     public void setCompleto(Boolean completo) {
         this.completo = completo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

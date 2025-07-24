@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import java.util.Date;
 
 public class AnuncioDTO {
+    private Long id;
+
     private Date dataAnuncio;
     private Double preco;
     private String descricao;
@@ -61,4 +63,11 @@ public class AnuncioDTO {
         this.vendido = vendido;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

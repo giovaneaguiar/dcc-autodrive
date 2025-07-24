@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDateTime;
 
 public class NotificacaoDTO {
+    private Long id;
+
     private String titulo;
     private String descricao;
     private Double valor;
@@ -70,5 +72,13 @@ public class NotificacaoDTO {
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

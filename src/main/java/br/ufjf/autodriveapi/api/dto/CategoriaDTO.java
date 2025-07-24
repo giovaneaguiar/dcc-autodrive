@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 public class CategoriaDTO {
+    private Long id;
     private String descricao;
 
     public static CategoriaDTO create(Categoria categoria) {
@@ -21,5 +22,13 @@ public class CategoriaDTO {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
