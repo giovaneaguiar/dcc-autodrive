@@ -232,11 +232,11 @@ public class VeiculoDTO {
         this.foto = foto;
     }
 
-    public Long getIdVeiculo() {
+    public Long getId() {
         return id;
     }
 
-    public void setIdVeiculo(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }
