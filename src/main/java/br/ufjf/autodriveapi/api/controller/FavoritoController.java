@@ -63,20 +63,34 @@ public class FavoritoController {
             }
         }
 
-    @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FavoritoDTO dto) {
-        if (!service.getFavoritoById(id).isPresent()) {
-            return new ResponseEntity("Favorito não encontrado", HttpStatus.NOT_FOUND);
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FavoritoDTO dto) {
+            if (!service.getFavoritoById(id).isPresent()) {
+                return new ResponseEntity("Favorito não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Favorito favorito = converter(dto);
+                favorito.setId(id);
+                service.salvar(favorito);
+                return ResponseEntity.ok(favorito);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-        try {
-            Favorito favorito = converter(dto);
-            favorito.setId(id);
-            service.salvar(favorito);
-            return ResponseEntity.ok(favorito);
-        } catch (RegraNegocioException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Favorito> favorito = service.getFavoritoById(id);
+            if (!favorito.isPresent()) {
+                return new ResponseEntity("Favorito não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(favorito.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-    }
 
         public Favorito converter(FavoritoDTO dto) {
 //            ModelMapper modelMapper = new ModelMapper();

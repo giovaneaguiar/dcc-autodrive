@@ -54,20 +54,34 @@ public class CategoriaController {
             }
         }
 
-    @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody CategoriaDTO dto) {
-        if (!service.getCategoriaById(id).isPresent()) {
-            return new ResponseEntity("Categoria não encontrada", HttpStatus.NOT_FOUND);
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody CategoriaDTO dto) {
+            if (!service.getCategoriaById(id).isPresent()) {
+                return new ResponseEntity("Categoria não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Categoria categoria = converter(dto);
+                categoria.setId(id);
+                service.salvar(categoria);
+                return ResponseEntity.ok(categoria);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-        try {
-            Categoria categoria = converter(dto);
-            categoria.setId(id);
-            service.salvar(categoria);
-            return ResponseEntity.ok(categoria);
-        } catch (RegraNegocioException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Categoria> categoria = service.getCategoriaById(id);
+            if (!categoria.isPresent()) {
+                return new ResponseEntity("Categoria não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(categoria.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-    }
 
         public Categoria converter(CategoriaDTO dto) {
             ModelMapper modelMapper = new ModelMapper();

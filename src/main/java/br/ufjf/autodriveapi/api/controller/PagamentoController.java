@@ -45,16 +45,16 @@ public class PagamentoController {
             return ResponseEntity.ok(pagamento.map(PagamentoDTO::create));
         }
 
-    @PostMapping()
-    public ResponseEntity post(@RequestBody PagamentoDTO dto) {
-        try {
-            Pagamento pagamento = converter(dto);
-            pagamento = service.salvar(pagamento);
-            return new ResponseEntity(pagamento, HttpStatus.CREATED);
-        } catch (RegraNegocioException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        @PostMapping()
+        public ResponseEntity post(@RequestBody PagamentoDTO dto) {
+            try {
+                Pagamento pagamento = converter(dto);
+                pagamento = service.salvar(pagamento);
+                return new ResponseEntity(pagamento, HttpStatus.CREATED);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-    }
 
         @PutMapping("{id}")
         public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody PagamentoDTO dto) {
@@ -66,6 +66,20 @@ public class PagamentoController {
                 pagamento.setId(id);
                 service.salvar(pagamento);
                 return ResponseEntity.ok(pagamento);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Pagamento> pagamento = service.getPagamentoById(id);
+            if (!pagamento.isPresent()) {
+                return new ResponseEntity("Pagamento não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(pagamento.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
             } catch (RegraNegocioException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }

@@ -10,6 +10,7 @@ import br.ufjf.autodriveapi.model.entity.Notificacao;
 import br.ufjf.autodriveapi.model.entity.Usuario;
 import br.ufjf.autodriveapi.service.NotificacaoService;
 import br.ufjf.autodriveapi.service.UsuarioService;
+import org.aspectj.weaver.ast.Not;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,6 +69,20 @@ public class NotificacaoController {
                 notificacao.setId(id);
                 service.salvar(notificacao);
                 return ResponseEntity.ok(notificacao);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Notificacao> notificacao = service.getNotificacaoById(id);
+            if (!notificacao.isPresent()) {
+                return new ResponseEntity("Notificação não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(notificacao.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
             } catch (RegraNegocioException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }

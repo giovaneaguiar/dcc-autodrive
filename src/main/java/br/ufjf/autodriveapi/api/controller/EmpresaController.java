@@ -54,20 +54,34 @@ public class EmpresaController {
             }
         }
 
-    @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody EmpresaDTO dto) {
-        if (!service.getEmpresaById(id).isPresent()) {
-            return new ResponseEntity("Empresa não encontrada", HttpStatus.NOT_FOUND);
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody EmpresaDTO dto) {
+            if (!service.getEmpresaById(id).isPresent()) {
+                return new ResponseEntity("Empresa não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Empresa empresa = converter(dto);
+                empresa.setId(id);
+                service.salvar(empresa);
+                return ResponseEntity.ok(empresa);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-        try {
-            Empresa empresa = converter(dto);
-            empresa.setId(id);
-            service.salvar(empresa);
-            return ResponseEntity.ok(empresa);
-        } catch (RegraNegocioException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Empresa> categoria = service.getEmpresaById(id);
+            if (!categoria.isPresent()) {
+                return new ResponseEntity("Empresa não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(categoria.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-    }
 
         public Empresa converter(EmpresaDTO dto) {
             ModelMapper modelMapper = new ModelMapper();

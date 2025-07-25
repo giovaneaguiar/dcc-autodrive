@@ -59,20 +59,34 @@ public class FinanciamentoController {
             }
         }
 
-    @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FinanciamentoDTO dto) {
-        if (!service.getFinanciamentoById(id).isPresent()) {
-            return new ResponseEntity("Financiamento não encontrado", HttpStatus.NOT_FOUND);
+        @PutMapping("{id}")
+        public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FinanciamentoDTO dto) {
+            if (!service.getFinanciamentoById(id).isPresent()) {
+                return new ResponseEntity("Financiamento não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                Financiamento financiamento = converter(dto);
+                financiamento.setId(id);
+                service.salvar(financiamento);
+                return ResponseEntity.ok(financiamento);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-        try {
-            Financiamento financiamento = converter(dto);
-            financiamento.setId(id);
-            service.salvar(financiamento);
-            return ResponseEntity.ok(financiamento);
-        } catch (RegraNegocioException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Financiamento> financiamento = service.getFinanciamentoById(id);
+            if (!financiamento.isPresent()) {
+                return new ResponseEntity("Financiamento não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(financiamento.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-    }
 
         //venda e finalvenda
         public Financiamento converter(FinanciamentoDTO dto) {

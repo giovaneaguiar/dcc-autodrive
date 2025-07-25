@@ -75,6 +75,20 @@ public class VendaController {
             }
         }
 
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Venda> venda = service.getVendaById(id);
+            if (!venda.isPresent()) {
+                return new ResponseEntity("Venda não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(venda.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
         public Venda converter(VendaDTO dto){
 //            ModelMapper modelMapper = new ModelMapper();
 //            Venda venda = modelMapper.map(dto, Venda.class);

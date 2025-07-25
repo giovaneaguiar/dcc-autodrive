@@ -77,6 +77,20 @@ public class PropostaController {
             }
         }
 
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Proposta> proposta = service.getPropostaById(id);
+            if (!proposta.isPresent()) {
+                return new ResponseEntity("Proposta não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(proposta.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
         public Proposta converter(PropostaDTO dto) {
             ModelMapper modelMapper = new ModelMapper();
             Proposta proposta = modelMapper.map(dto, Proposta.class);

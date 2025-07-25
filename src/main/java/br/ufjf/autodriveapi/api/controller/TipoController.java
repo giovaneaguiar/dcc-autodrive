@@ -67,6 +67,21 @@ public class TipoController {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }
+
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Tipo> tipo = service.getTipoById(id);
+            if (!tipo.isPresent()) {
+                return new ResponseEntity("Tipo não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(tipo.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
         public Tipo converter (TipoDTO dto){
             ModelMapper modelMapper = new ModelMapper();
             Tipo tipo = modelMapper.map(dto, Tipo.class);

@@ -70,6 +70,20 @@ public class OpcionalController {
             }
         }
 
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Opcional> opcional = service.getOpcionalById(id);
+            if (!opcional.isPresent()) {
+                return new ResponseEntity("Opcional não encontrado", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(opcional.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
         public Opcional converter(OpcionalDTO dto) {
             ModelMapper modelMapper = new ModelMapper();
             Opcional opcional = modelMapper.map(dto, Opcional.class);

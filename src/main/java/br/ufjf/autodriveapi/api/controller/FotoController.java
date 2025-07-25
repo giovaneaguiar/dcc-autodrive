@@ -69,6 +69,20 @@ public class FotoController {
             }
         }
 
+        @DeleteMapping("{id}")
+        public ResponseEntity excluir(@PathVariable("id") Long id) {
+            Optional<Foto> foto = service.getFotoById(id);
+            if (!foto.isPresent()) {
+                return new ResponseEntity("Foto não encontrada", HttpStatus.NOT_FOUND);
+            }
+            try {
+                service.excluir(foto.get());
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } catch (RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
         public Foto converter(FotoDTO dto) {
             ModelMapper modelMapper = new ModelMapper();
             Foto foto = modelMapper.map(dto, Foto.class);
