@@ -79,19 +79,32 @@ public class VeiculoController {
         }
     }
 
-        @DeleteMapping("{id}")
-        public ResponseEntity excluir(@PathVariable("id") Long id) {
-            Optional<Veiculo> veiculo = service.getVeiculoById(id);
-            if (!veiculo.isPresent()) {
-                return new ResponseEntity("Veículo não encontrado", HttpStatus.NOT_FOUND);
-            }
-            try {
-                service.excluir(veiculo.get());
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            } catch (RegraNegocioException e) {
-                return ResponseEntity.badRequest().body(e.getMessage());
-            }
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Veiculo> veiculo = service.getVeiculoById(id);
+        if (!veiculo.isPresent()) {
+            return new ResponseEntity("Veículo não encontrado", HttpStatus.NOT_FOUND);
         }
+
+        try {
+            Veiculo v = veiculo.get();
+
+            v.setEmpresa(null);
+            v.setCategoria(null);
+            v.setMarca(null);
+            v.setOpcional(null);
+            v.setFoto(null);
+
+            service.salvar(v);
+            service.excluir(v);
+
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 
     public Veiculo converter(VeiculoDTO dto) {
 //        ModelMapper modelMapper = new ModelMapper();
