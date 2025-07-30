@@ -87,17 +87,7 @@ public class VeiculoController {
         }
 
         try {
-            Veiculo v = veiculo.get();
-
-            v.setEmpresa(null);
-            v.setCategoria(null);
-            v.setMarca(null);
-            v.setOpcional(null);
-            v.setFoto(null);
-
-            service.salvar(v);
-            service.excluir(v);
-
+            service.salvar(veiculo.get());
             return new ResponseEntity(HttpStatus.NO_CONTENT);
 
         } catch (RegraNegocioException e) {
@@ -107,8 +97,6 @@ public class VeiculoController {
 
 
     public Veiculo converter(VeiculoDTO dto) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        Veiculo veiculo = modelMapper.map(dto, Veiculo.class);
         Veiculo veiculo = new Veiculo();
 
         veiculo.setPlaca(dto.getPlaca());
