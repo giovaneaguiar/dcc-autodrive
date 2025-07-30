@@ -87,7 +87,7 @@ public class VeiculoController {
         }
 
         try {
-            service.salvar(veiculo.get());
+            service.excluir(veiculo.get());
             return new ResponseEntity(HttpStatus.NO_CONTENT);
 
         } catch (RegraNegocioException e) {
