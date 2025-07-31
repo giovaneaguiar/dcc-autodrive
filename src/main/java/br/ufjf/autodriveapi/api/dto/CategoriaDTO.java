@@ -1,19 +1,9 @@
 package br.ufjf.autodriveapi.api.dto;
 
 import br.ufjf.autodriveapi.model.entity.Categoria;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class CategoriaDTO {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descricao;
 
