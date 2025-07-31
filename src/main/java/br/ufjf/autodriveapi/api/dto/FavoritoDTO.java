@@ -3,9 +3,15 @@ package br.ufjf.autodriveapi.api.dto;
 import br.ufjf.autodriveapi.model.entity.Favorito;
 import org.modelmapper.ModelMapper;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 public class FavoritoDTO {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDateTime dataFavorito;
