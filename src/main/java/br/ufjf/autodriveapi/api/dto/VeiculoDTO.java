@@ -7,7 +7,6 @@ import java.util.Date;
 public class VeiculoDTO {
 
     private Long id;
-
     private String placa;
     private String modelo;
     private String cor;
@@ -37,11 +36,37 @@ public class VeiculoDTO {
     public static VeiculoDTO create(Veiculo veiculo) {
         ModelMapper modelMapper = new ModelMapper();
         VeiculoDTO dto = modelMapper.map(veiculo, VeiculoDTO.class);
-        dto.nomeEmpresa = veiculo.getEmpresa().getNome();
-        dto.nomeCategoria = veiculo.getCategoria().getDescricao();
-        dto.nomeMarca = veiculo.getMarca().getNome();
-        dto.opcional = veiculo.getOpcional().getDescricao();
-        dto.foto = veiculo.getFoto().getFoto();
+
+        if (veiculo.getEmpresa() != null) {
+            dto.nomeEmpresa = veiculo.getEmpresa().getNome();
+        } else {
+            dto.nomeEmpresa = null;
+        }
+
+        if (veiculo.getCategoria() != null) {
+            dto.nomeCategoria = veiculo.getCategoria().getDescricao();
+        } else {
+            dto.nomeCategoria = null;
+        }
+
+        if (veiculo.getMarca() != null) {
+            dto.nomeMarca = veiculo.getMarca().getNome();
+        } else {
+            dto.nomeMarca = null;
+        }
+
+        if (veiculo.getOpcional() != null) {
+            dto.opcional = veiculo.getOpcional().getDescricao();
+        } else {
+            dto.opcional = null;
+        }
+
+        if (veiculo.getFoto() != null) {
+            dto.foto = veiculo.getFoto().getFoto();
+        } else {
+            dto.foto = null;
+        }
+
         return dto;
     }
 
