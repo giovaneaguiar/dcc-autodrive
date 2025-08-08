@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.CategoriaRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,12 @@ public class CategoriaService {
         repository.delete(categoria);
     }
 
-    public void validar(Categoria categoria) {}
+    public void validar(Categoria categoria) {
+        if (categoria.getDescricao() != null && categoria.getDescricao().length() > 255) {
+            throw new RegraNegocioException("A descrição da proposta não pode ultrapassar 255 caracteres.");
+        }
+        if (categoria.getDescricao() == null || categoria.getDescricao().trim().isEmpty()) {
+            throw new RegraNegocioException("A descrição da categoria é obrigatório.");
+        }
+    }
 }

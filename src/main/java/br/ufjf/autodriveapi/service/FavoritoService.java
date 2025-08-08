@@ -51,6 +51,10 @@ public class FavoritoService {
         if (favorito.getDescricao() != null && favorito.getDescricao().length() > 255) {
             throw new RegraNegocioException("A descrição não pode ultrapassar 255 caracteres.");
         }
+
+        if (favorito.getDescricao() == null || favorito.getDescricao().trim().isEmpty()) {
+            throw new RegraNegocioException("A descrição do favorito é obrigatório.");
+        }
     }
 
 }

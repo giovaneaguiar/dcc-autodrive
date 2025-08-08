@@ -18,8 +18,8 @@ public class Venda {
     private Long id;
 
     private LocalDateTime dataVenda;
-    private double valorFinal;
-    private boolean concluido;
+    private Double valorFinal;
+    private Boolean concluido;
     private String descricao;
     private String status;
 
@@ -33,9 +33,7 @@ public class Venda {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public LocalDateTime getDataVenda() {
         return dataVenda;
@@ -53,9 +51,7 @@ public class Venda {
         this.valorFinal = valorFinal;
     }
 
-    public boolean isConcluido() {
-        return concluido;
-    }
+    public Boolean getConcluido() { return concluido; }
 
     public void setConcluido(boolean concluido) {
         this.concluido = concluido;

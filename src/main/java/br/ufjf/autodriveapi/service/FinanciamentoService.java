@@ -54,6 +54,15 @@ public class FinanciamentoService {
         if (financiamento.getObservacao() != null && financiamento.getObservacao().length() > 255) {
             throw new RegraNegocioException("A observação não pode ultrapassar 255 caracteres.");
         }
+
+        if (financiamento.getObservacao() == null || financiamento.getObservacao().trim().isEmpty()) {
+            throw new RegraNegocioException("A observação do favorito é obrigatório.");
+        }
+
+        if (financiamento.getAprovado() == true || financiamento.getAprovado() == false) {
+            throw new RegraNegocioException("O atatus aprovado deve ser verdadeiro ou falso.");
+        }
+
     }
 
 }

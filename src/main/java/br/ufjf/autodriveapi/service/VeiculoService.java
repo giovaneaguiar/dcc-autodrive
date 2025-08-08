@@ -55,6 +55,10 @@ public class VeiculoService {
             throw new RegraNegocioException("O ano do veículo é obrigatório.");
         }
 
+        if (veiculo.getVersao() == null || veiculo.getVersao().trim().isEmpty()) {
+            throw new RegraNegocioException("A versão do veículo é obrigatório.");
+        }
+
         if (veiculo.getPreco() == null || veiculo.getPreco() <= 0) {
             throw new RegraNegocioException("O preço do veículo deve ser maior que zero.");
         }
@@ -75,7 +79,15 @@ public class VeiculoService {
             throw new RegraNegocioException("A marca do veículo é obrigatória.");
         }
 
-        if (veiculo.getFoto() == null) {
+        if (veiculo.getTipo() == null || veiculo.getTipo().getId() == null) {
+            throw new RegraNegocioException("O veículo deve ter um tipo.");
+        }
+
+        if (veiculo.getOpcional() == null || veiculo.getOpcional().getId() == null) {
+            throw new RegraNegocioException("O veículo deve ter um opcional.");
+        }
+
+        if (veiculo.getFoto() == null || veiculo.getFoto().getId() == null) {
             throw new RegraNegocioException("Pelo menos uma foto do veículo é obrigatória.");
         }
     }

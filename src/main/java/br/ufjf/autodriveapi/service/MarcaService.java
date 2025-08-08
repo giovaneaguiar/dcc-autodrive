@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.MarcaRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,9 @@ public class MarcaService {
         repository.delete(marca);
     }
 
-    public void validar(Marca marca) {}
+    public void validar(Marca marca) {
+        if (marca.getNome() == null || marca.getNome().trim().isEmpty()) {
+            throw new RegraNegocioException("O nome da marca é obrigatório.");
+        }
+    }
 }

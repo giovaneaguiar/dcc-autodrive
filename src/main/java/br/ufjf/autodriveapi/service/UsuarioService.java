@@ -80,7 +80,7 @@ public class UsuarioService {
         }
 
         if (usuario.getEmpresa() == null || usuario.getEmpresa().getId() == null) {
-            throw new RegraNegocioException("O vínculo com a empresa é obrigatório.");
+            throw new RegraNegocioException("O veículo deve estar associado a uma empresa.");
         }
     }
 

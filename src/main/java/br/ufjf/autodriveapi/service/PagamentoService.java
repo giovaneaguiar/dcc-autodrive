@@ -58,6 +58,10 @@ public class PagamentoService {
         if (pagamento.getDescricao() != null && pagamento.getDescricao().length() > 255) {
             throw new RegraNegocioException("A descrição do pagamento não pode ultrapassar 255 caracteres.");
         }
+
+        if (pagamento.getDescricao() == null || pagamento.getDescricao().trim().isEmpty()) {
+            throw new RegraNegocioException("A descrição do pagamento é obrigatória.");
+        }
     }
 
 }

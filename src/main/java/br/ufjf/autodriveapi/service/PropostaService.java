@@ -50,6 +50,10 @@ public class PropostaService {
         if (proposta.getDescricao() != null && proposta.getDescricao().length() > 255) {
             throw new RegraNegocioException("A descrição da proposta não pode ultrapassar 255 caracteres.");
         }
+
+        if (proposta.getDescricao() == null || proposta.getDescricao().trim().isEmpty()) {
+            throw new RegraNegocioException("A descrição da categoria é obrigatório.");
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.AnuncioRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,21 @@ public class AnuncioService {
         repository.delete(anuncio);
     }
 
-    public void validar(Anuncio anuncio) {}
+    public void validar(Anuncio anuncio) {
+        if (anuncio.getDataAnuncio() == null) {
+            throw new RegraNegocioException("A data do anuncio é obrigatório.");
+        }
+
+        if (anuncio.getPreco() == null || anuncio.getPreco() <= 0) {
+            throw new RegraNegocioException("O preço é obrigatório e deve ser positivo.");
+        }
+
+        if (anuncio.getDescricao() == null || anuncio.getDescricao().trim().isEmpty()) {
+            throw new RegraNegocioException("A descrição do anúncio é obrigatório.");
+        }
+
+        if (anuncio.getVendido() != true || anuncio.getVendido() != false) {
+            throw new RegraNegocioException("O atatus vendido deve ser verdadeiro ou falso.");
+        }
+    }
 }

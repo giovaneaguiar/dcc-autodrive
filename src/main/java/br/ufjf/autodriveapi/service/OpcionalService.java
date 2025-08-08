@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.OpcionalRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,33 @@ public class OpcionalService {
         repository.delete(opcional);
     }
 
-    public void validar(Opcional notificacao) {}
+    public void validar(Opcional opcional) {
+        if (opcional.getDescricao() == null || opcional.getDescricao().trim().isEmpty()) {
+            throw new RegraNegocioException("A descrição do opcional é obrigatória.");
+        }
+
+        if (opcional.getArCondicionado() == true || opcional.getArCondicionado() == false) {
+            throw new RegraNegocioException("O ar condicionado deve ser verdadeiro ou falso.");
+        }
+
+        if (opcional.getDirecaoHidraulica() == true || opcional.getDirecaoHidraulica() == false) {
+            throw new RegraNegocioException("A direção hidráulica deve ser verdadeiro ou falso.");
+        }
+
+        if (opcional.getVidroEletrico() == true || opcional.getVidroEletrico() == false) {
+            throw new RegraNegocioException("O vidro elétrico deve ser verdadeiro ou falso.");
+        }
+
+        if (opcional.getCameraRe() == true || opcional.getCameraRe() == false) {
+            throw new RegraNegocioException("A câmera de ré deve ser verdadeiro ou falso.");
+        }
+
+        if (opcional.getSensor() == true || opcional.getSensor() == false) {
+            throw new RegraNegocioException("O sensor deve ser verdadeiro ou falso.");
+        }
+
+        if (opcional.getCompleto() == true || opcional.getCompleto() == false) {
+            throw new RegraNegocioException("O atatus completo deve ser verdadeiro ou falso.");
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.NotificacaoRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,26 @@ public class NotificacaoService {
         Objects.requireNonNull(notificacao.getId());
         repository.delete(notificacao);
     }
+// titulo, descricao, valor
+    public void validar(Notificacao notificacao) {
+        if (notificacao.getTitulo() == null || notificacao.getTitulo().trim().isEmpty()) {
+            throw new RegraNegocioException("O título da notificação é obrigatória.");
+        }
 
-    public void validar(Notificacao notificacao) {}
+        if (notificacao.getDescricao() == null || notificacao.getDescricao().trim().isEmpty()) {
+            throw new RegraNegocioException("A descrição da notificação é obrigatória.");
+        }
+
+        if (notificacao.getValor() == null || notificacao.getValor() <= 0) {
+            throw new RegraNegocioException("O valor do favorito é obrigatório e deve ser positivo.");
+        }
+
+        if (notificacao.getDataCriacao() == null) {
+            throw new RegraNegocioException("A data de criação é obrigatória.");
+        }
+
+        if (notificacao.getUsuario() == null || notificacao.getUsuario().getId() == null) {
+            throw new RegraNegocioException("A notificação deve estar associado a um usuário.");
+        }
+    }
 }

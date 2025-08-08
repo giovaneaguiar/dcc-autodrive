@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.TipoRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,9 @@ public class TipoService {
         repository.delete(tipo);
     }
 
-    public void validar(Tipo tipo) {}
+    public void validar(Tipo tipo) {
+        if (tipo.getNome() == null || tipo.getNome().trim().isEmpty()) {
+            throw new RegraNegocioException("O nome do tipo é obrigatório.");
+        }
+    }
 }

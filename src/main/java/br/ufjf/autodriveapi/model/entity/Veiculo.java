@@ -64,6 +64,7 @@ public class Veiculo {
         this.marca = marca;
         this.opcional = opcional;
         this.foto = foto;
+        this.tipo = tipo;
     }
 
     public Long getId() {
@@ -200,6 +201,14 @@ public class Veiculo {
 
     public void setFoto(Foto foto) {
         this.foto = foto;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 }
 
