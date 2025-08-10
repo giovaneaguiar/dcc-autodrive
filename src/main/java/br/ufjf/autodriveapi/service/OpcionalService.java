@@ -43,27 +43,27 @@ public class OpcionalService {
             throw new RegraNegocioException("A descrição do opcional é obrigatória.");
         }
 
-        if (opcional.getArCondicionado() == true || opcional.getArCondicionado() == false) {
+        if (opcional.getArCondicionado() == null) {
             throw new RegraNegocioException("O ar condicionado deve ser verdadeiro ou falso.");
         }
 
-        if (opcional.getDirecaoHidraulica() == true || opcional.getDirecaoHidraulica() == false) {
+        if (opcional.getDirecaoHidraulica() == null) {
             throw new RegraNegocioException("A direção hidráulica deve ser verdadeiro ou falso.");
         }
 
-        if (opcional.getVidroEletrico() == true || opcional.getVidroEletrico() == false) {
+        if (opcional.getVidroEletrico() == null) {
             throw new RegraNegocioException("O vidro elétrico deve ser verdadeiro ou falso.");
         }
 
-        if (opcional.getCameraRe() == true || opcional.getCameraRe() == false) {
+        if (opcional.getCameraRe() == null) {
             throw new RegraNegocioException("A câmera de ré deve ser verdadeiro ou falso.");
         }
 
-        if (opcional.getSensor() == true || opcional.getSensor() == false) {
+        if (opcional.getSensor() == null) {
             throw new RegraNegocioException("O sensor deve ser verdadeiro ou falso.");
         }
 
-        if (opcional.getCompleto() == true || opcional.getCompleto() == false) {
+        if (opcional.getCompleto() == null) {
             throw new RegraNegocioException("O atatus completo deve ser verdadeiro ou falso.");
         }
     }

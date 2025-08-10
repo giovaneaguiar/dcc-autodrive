@@ -1,9 +1,6 @@
 package br.ufjf.autodriveapi.model.entity;
 
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -63,8 +60,8 @@ public class Veiculo {
         this.categoria = categoria;
         this.marca = marca;
         this.opcional = opcional;
-        this.foto = foto;
         this.tipo = tipo;
+        this.foto = foto;
     }
 
     public Long getId() {
@@ -195,20 +192,14 @@ public class Veiculo {
         this.opcional = opcional;
     }
 
+    public Tipo getTipo() { return tipo; }
+
+    public void setTipo(Tipo tipo) { this.tipo = tipo; }
+
     public Foto getFoto() {
         return foto;
     }
 
-    public void setFoto(Foto foto) {
-        this.foto = foto;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
+    public void setFoto(Foto foto) { this.foto = foto; }
 }
 

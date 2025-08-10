@@ -119,6 +119,7 @@ public class VeiculoController {
                 veiculo.setEmpresa(empresa.get());
             }
         }
+
         if (dto.getIdCategoria() != null) {
             Optional<Categoria> categoria = categoriaService.getCategoriaById(dto.getIdCategoria());
             if (!categoria.isPresent()) {
@@ -127,6 +128,7 @@ public class VeiculoController {
                 veiculo.setCategoria(categoria.get());
             }
         }
+
         if (dto.getIdMarca() != null) {
             Optional<Marca> marca = marcaService.getMarcaById(dto.getIdMarca());
             if (!marca.isPresent()) {
@@ -135,6 +137,7 @@ public class VeiculoController {
                 veiculo.setMarca(marca.get());
             }
         }
+
         if (dto.getIdOpcional() != null) {
             Optional<Opcional> opcional = opcionalService.getOpcionalById(dto.getIdOpcional());
             if (!opcional.isPresent()) {
@@ -142,16 +145,24 @@ public class VeiculoController {
             } else {
                 veiculo.setOpcional(opcional.get());
             }
+        }
 
-            if (dto.getIdFoto() != null) {
-                Optional<Foto> foto = fotoService.getFotoById(dto.getIdFoto());
-                if (!foto.isPresent()) {
-                    veiculo.setFoto(null);
-                } else {
-                    veiculo.setFoto(foto.get());
-                }
+        if (dto.getIdTipo() != null) {
+            Optional<Tipo> tipo = tipoService.getTipoById(dto.getIdTipo());
+            if (!tipo.isPresent()) {
+                veiculo.setOpcional(null);
+            } else {
+                veiculo.setTipo(tipo.get());
             }
+        }
 
+        if (dto.getIdFoto() != null) {
+            Optional<Foto> foto = fotoService.getFotoById(dto.getIdFoto());
+            if (!foto.isPresent()) {
+                veiculo.setFoto(null);
+            } else {
+                veiculo.setFoto(foto.get());
+            }
         }
         return veiculo;
     }

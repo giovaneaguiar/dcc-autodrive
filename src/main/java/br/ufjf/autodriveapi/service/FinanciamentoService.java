@@ -43,8 +43,8 @@ public class FinanciamentoService {
             throw new RegraNegocioException("O valor do financiamento deve ser maior que zero.");
         }
 
-        if (financiamento.getParcela() == null || financiamento.getParcela() <= 0) {
-            throw new RegraNegocioException("A quantidade de parcelas deve ser maior que zero.");
+        if (financiamento.getParcela() == null || financiamento.getParcela() < 0) {
+            throw new RegraNegocioException("A quantidade de parcelas deve ser maior ou igual a zero.");
         }
 
         if (financiamento.getVenda() == null || financiamento.getVenda().getId() == null) {
@@ -59,10 +59,9 @@ public class FinanciamentoService {
             throw new RegraNegocioException("A observação do favorito é obrigatório.");
         }
 
-        if (financiamento.getAprovado() == true || financiamento.getAprovado() == false) {
+        if (financiamento.getAprovado() == null) {
             throw new RegraNegocioException("O atatus aprovado deve ser verdadeiro ou falso.");
         }
-
     }
 
 }

@@ -1,5 +1,6 @@
 package br.ufjf.autodriveapi.service;
 
+import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.repository.FotoRepository;
 import br.ufjf.autodriveapi.model.entity.*;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,9 @@ public class FotoService {
         repository.delete(foto);
     }
 
-    public void validar(Foto foto) {}
+    public void validar(Foto foto) {
+        if (foto.getFoto() == null || foto.getFoto().trim().isEmpty()) {
+            throw new RegraNegocioException("A foto é obrigatório.");
+        }
+    }
 }

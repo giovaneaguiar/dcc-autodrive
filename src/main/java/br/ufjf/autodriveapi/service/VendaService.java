@@ -47,12 +47,8 @@ public class VendaService {
             throw new RegraNegocioException("O valor final da venda deve ser maior que zero.");
         }
 
-        if (venda.getConcluido() != true || venda.getConcluido() != false) {
-            throw new RegraNegocioException("O atatus de concluído deve ser verdadeiro ou falso.");
-        }
-
-        if (venda.getDescricao() == null || venda.getDescricao().trim().isEmpty()) {
-            throw new RegraNegocioException("A descrição do veículo é obrigatório.");
+        if (venda.getConcluido() == null) {
+            throw new RegraNegocioException("O status de concluído deve ser verdadeiro ou falso.");
         }
 
         if (venda.getStatus() == null || venda.getStatus().trim().isEmpty()) {

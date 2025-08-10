@@ -51,7 +51,7 @@ public class AnuncioService {
             throw new RegraNegocioException("A descrição do anúncio é obrigatório.");
         }
 
-        if (anuncio.getVendido() != true || anuncio.getVendido() != false) {
+        if (anuncio.getVendido() == null) {
             throw new RegraNegocioException("O atatus vendido deve ser verdadeiro ou falso.");
         }
     }

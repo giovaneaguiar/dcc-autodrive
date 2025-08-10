@@ -55,6 +55,10 @@ public class FavoritoService {
         if (favorito.getDescricao() == null || favorito.getDescricao().trim().isEmpty()) {
             throw new RegraNegocioException("A descrição do favorito é obrigatório.");
         }
+
+        if (favorito.getDataFavorito() == null) {
+            throw new RegraNegocioException("A data do anuncio é obrigatório.");
+        }
     }
 
 }

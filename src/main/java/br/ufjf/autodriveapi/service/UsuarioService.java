@@ -59,8 +59,8 @@ public class UsuarioService {
             throw new RegraNegocioException("O logradouro é obrigatório.");
         }
 
-        if (usuario.getNumero() == null || usuario.getNumero() <= 0) {
-            throw new RegraNegocioException("O número da residência é obrigatório e deve ser positivo.");
+        if (usuario.getNumero() == null || usuario.getNumero() < 0) {
+            throw new RegraNegocioException("O número da residência é obrigatório e deve ser maior ou igual a zero.");
         }
 
         if (usuario.getBairro() == null || usuario.getBairro().trim().isEmpty()) {

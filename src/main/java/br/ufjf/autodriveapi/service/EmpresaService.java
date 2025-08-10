@@ -51,8 +51,8 @@ public class EmpresaService {
             throw new RegraNegocioException("O logradouro da empresa é obrigatório.");
         }
 
-        if (empresa.getNumero() == null || empresa.getNumero() <= 0) {
-            throw new RegraNegocioException("O número da empresa é obrigatório e deve ser positivo.");
+        if (empresa.getNumero() == null || empresa.getNumero() < 0) {
+            throw new RegraNegocioException("O número da empresa é obrigatório e deve ser maior ou igual a zero.");
         }
 
         if (empresa.getBairro() == null || empresa.getBairro().trim().isEmpty()) {

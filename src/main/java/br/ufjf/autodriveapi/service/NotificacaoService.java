@@ -48,7 +48,7 @@ public class NotificacaoService {
         }
 
         if (notificacao.getValor() == null || notificacao.getValor() <= 0) {
-            throw new RegraNegocioException("O valor do favorito é obrigatório e deve ser positivo.");
+            throw new RegraNegocioException("O valor do favorito é obrigatório e deve ser maior que zero.");
         }
 
         if (notificacao.getDataCriacao() == null) {
@@ -58,5 +58,6 @@ public class NotificacaoService {
         if (notificacao.getUsuario() == null || notificacao.getUsuario().getId() == null) {
             throw new RegraNegocioException("A notificação deve estar associado a um usuário.");
         }
+
     }
 }
