@@ -2,10 +2,12 @@ package br.ufjf.autodriveapi.api.controller;
 import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.MarcaDTO;
 import br.ufjf.autodriveapi.api.dto.MarcaDTO;
+import br.ufjf.autodriveapi.api.dto.VeiculoDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.entity.Anuncio;
 import br.ufjf.autodriveapi.model.entity.Marca;
 import br.ufjf.autodriveapi.model.entity.Marca;
+import br.ufjf.autodriveapi.model.entity.Veiculo;
 import br.ufjf.autodriveapi.service.MarcaService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -87,4 +89,14 @@ public class MarcaController {
             Marca marca = modelMapper.map(dto, Marca.class);
             return marca;
         }
+
+    @GetMapping("/{id}/veiculos")
+    public ResponseEntity getVeiculos(@PathVariable("id") Long id) {
+        Optional<Marca> marca = service.getMarcaById(id);
+        if (!marca.isPresent()) {
+            return new ResponseEntity("Marca não encontrada", HttpStatus.NOT_FOUND);
+        }
+        List<Veiculo> veiculos = marca.get().getVeiculos();
+        return ResponseEntity.ok(veiculos.stream().map(VeiculoDTO::create).collect(Collectors.toList()));
+    }
 }
