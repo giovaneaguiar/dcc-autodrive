@@ -4,6 +4,7 @@ import br.ufjf.autodriveapi.api.dto.AnuncioDTO;
 import br.ufjf.autodriveapi.api.dto.VeiculoDTO;
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.model.entity.*;
+import br.ufjf.autodriveapi.model.repository.VeiculoRepository;
 import br.ufjf.autodriveapi.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,9 @@ public class VeiculoController {
     private final OpcionalService opcionalService;
     private final TipoService tipoService;
     private final FotoService fotoService;
+    private final VeiculoRepository veiculoRepository;
 
-    public VeiculoController(VeiculoService service, EmpresaService empresaService, CategoriaService categoriaService, MarcaService marcaService, OpcionalService opcionalService, TipoService tipoService, FotoService fotoService) {
+    public VeiculoController(VeiculoService service, EmpresaService empresaService, CategoriaService categoriaService, MarcaService marcaService, OpcionalService opcionalService, TipoService tipoService, FotoService fotoService, VeiculoRepository veiculoRepository) {
         this.service = service;
         this.empresaService = empresaService;
         this.categoriaService = categoriaService;
@@ -36,6 +38,7 @@ public class VeiculoController {
         this.opcionalService = opcionalService;
         this.tipoService = tipoService;
         this.fotoService = fotoService;
+        this.veiculoRepository = veiculoRepository;
     }
 
     @GetMapping()
@@ -166,5 +169,4 @@ public class VeiculoController {
         }
         return veiculo;
     }
-
 }

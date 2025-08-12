@@ -1,9 +1,13 @@
 package br.ufjf.autodriveapi.model.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 //@Data
@@ -26,6 +30,10 @@ public class Empresa {
     private String uf;
     private String cep;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "empresa")
+    private List<Veiculo> veiculos;
+
     public Long getId() {
         return id;
     }
@@ -36,6 +44,10 @@ public class Empresa {
 
     public String getNome() {
         return nome;
+    }
+
+    public List<Veiculo> getVeiculos() {
+        return veiculos;
     }
 
     public void setNome(String nome) {

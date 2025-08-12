@@ -26,6 +26,11 @@ public class VeiculoService {
         return repository.findById(id);
     }
 
+
+    public List<Veiculo> getVeiculoByEmpresa(Optional<Empresa> empresa) {
+        return repository.findByEmpresa(empresa);
+    }
+
     @Transactional
     public Veiculo salvar(Veiculo veiculo) {
         validar(veiculo);
