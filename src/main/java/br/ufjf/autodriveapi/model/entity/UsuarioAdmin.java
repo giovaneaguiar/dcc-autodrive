@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 //@Data
+@Builder
+@Entity
 //@NoArgsConstructor
 //@AllArgsConstructor
-//@Builder
-@Entity
 public class UsuarioAdmin {
 
     @Id
@@ -22,6 +22,17 @@ public class UsuarioAdmin {
     private String cpf;
     private String senha;
     private boolean admin;
+
+    public UsuarioAdmin() {
+
+    }
+
+    public UsuarioAdmin(String login, String cpf, String senha, boolean admin) {
+        this.login = login;
+        this.cpf = cpf;
+        this.senha = senha;
+        this.admin = admin;
+    }
 
     public Long getId() {
         return id;

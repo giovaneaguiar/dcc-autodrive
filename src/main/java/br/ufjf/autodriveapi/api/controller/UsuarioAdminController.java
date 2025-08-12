@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/usuariosAdmin")
-@RequiredArgsConstructor
 @CrossOrigin
 public class UsuarioAdminController {
 
@@ -32,6 +31,16 @@ public class UsuarioAdminController {
     private final JwtService jwtService;
 
     private final UsuarioAdminService service;
+
+    public UsuarioAdminController(UsuarioAdminService usuarioAdminService,
+                                  PasswordEncoder passwordEncoder,
+                                  JwtService jwtService,
+                                  UsuarioAdminService service) {
+        this.usuarioAdminService = usuarioAdminService;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.service = service;
+    }
 
     @GetMapping()
     public ResponseEntity get() {
@@ -70,40 +79,48 @@ public class UsuarioAdminController {
 
     @PostMapping("/auth")
     public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais){
-        try{
-            UsuarioAdmin usuarioAdmin = UsuarioAdmin.builder()
-                    .login(credenciais.getLogin())
-                    .senha(credenciais.getSenha()).build();
+        try {
+            UsuarioAdmin usuarioAdmin = new UsuarioAdmin();
+            usuarioAdmin.setLogin(credenciais.getLogin());
+            usuarioAdmin.setSenha(credenciais.getSenha());
+
             UserDetails usuarioAdminAutenticado = usuarioAdminService.autenticar(usuarioAdmin);
             String token = jwtService.gerarToken(usuarioAdmin);
+
             return new TokenDTO(usuarioAdmin.getLogin(), token);
-        } catch (UsernameNotFoundException | SenhaInvalidaException e ){
+        } catch (UsernameNotFoundException | SenhaInvalidaException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
 
     @PutMapping("{id}")
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody UsuarioAdminDTO dto) {
-        if (!service.getUsuarioAdminById(id).isPresent()) {
+        Optional<UsuarioAdmin> usuarioExistente = service.getUsuarioAdminById(id);
+        if (!usuarioExistente.isPresent()) {
             return new ResponseEntity("Usuário não encontrado", HttpStatus.NOT_FOUND);
         }
+
         try {
-            if (dto.getSenha() == null || dto.getSenha().trim().equals("") ||
-                    dto.getSenhaRepeticao() == null || dto.getSenhaRepeticao().trim().equals("")) {
+            if (dto.getSenha() == null || dto.getSenha().trim().isEmpty() ||
+                    dto.getSenhaRepeticao() == null || dto.getSenhaRepeticao().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body("Senha inválida");
             }
             if (!dto.getSenha().equals(dto.getSenhaRepeticao())) {
                 return ResponseEntity.badRequest().body("Senhas não conferem");
             }
-            if (!service.getUsuarioAdminById(id).isPresent()) {
+
             UsuarioAdmin usuarioAdmin = converter(dto);
             usuarioAdmin.setId(id);
+            String senhaCriptografada = passwordEncoder.encode(dto.getSenha());
+            usuarioAdmin.setSenha(senhaCriptografada);
             service.salvar(usuarioAdmin);
+
             return ResponseEntity.ok(usuarioAdmin);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) {

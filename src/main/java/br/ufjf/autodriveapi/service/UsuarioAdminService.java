@@ -2,9 +2,9 @@ package br.ufjf.autodriveapi.service;
 
 import br.ufjf.autodriveapi.exception.RegraNegocioException;
 import br.ufjf.autodriveapi.exception.SenhaInvalidaException;
-import br.ufjf.autodriveapi.model.entity.Aluno;
-import br.ufjf.autodriveapi.model.entity.Curso;
-import br.ufjf.autodriveapi.model.entity.Professor;
+//import br.ufjf.autodriveapi.model.entity.Aluno;
+//import br.ufjf.autodriveapi.model.entity.Curso;
+//import br.ufjf.autodriveapi.model.entity.Professor;
 import br.ufjf.autodriveapi.model.entity.UsuarioAdmin;
 import br.ufjf.autodriveapi.model.repository.UsuarioAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
